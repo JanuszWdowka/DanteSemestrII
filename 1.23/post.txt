@@ -1,0 +1,9 @@
+tire.txt
+event.txt
+meat.txt
+salt.txt
+read.txt
+would.txt
+each.txt
+then.txt
+bed.txt
