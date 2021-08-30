@@ -1,0 +1,43 @@
+Napisz program do uruchamiania funkcji wykonujących binarne operacje arytmetyczne na podstawie danych pobranych od użytkownika. W tym przypadku operacje binarne to operacje dwuargumentowe (np. A + B).
+
+W tym celu przygotuj funkcję calculate, która będzie przyjmowała dwie liczby całkowite oraz wskaźnik na funkcję, wykonującą operacje na tych liczbach.
+
+Przykładowe wywołanie funkcji calculate powinno wyglądać następująco:
+
+int add(int a, int b)
+{
+    return a + b;
+}
+
+int result = calculate(5, 5, add);
+Deklarację funkcji calculate umieść w pliku nagłówkowym int_operations.h wraz z deklaracjami funkcji do sumowania (add_int), odejmowania (sub_int), dzielenia (div_int) i mnożenia (mul_int), a definicje w pliku int_operations.c.
+
+Napisz program, który przetestuje działanie przygotowanej przez Ciebie funkcji.
+
+W funkcji main zadeklaruj tablicę (o nazwie funcs) wskaźników na przygotowane funkcje. Do kolejnych komórek przypisz adresy poszczególnych funkcji, wykonujących operacje na argumentach liczbowych.
+
+Program powinien pobrać od użytkownika dwie liczby oraz identyfikator operacji do wykonania:
+
+0 - dodawanie,
+1 - odejmowanie,
+2 - dzielenie,
+3 - mnożenie.
+Po pobraniu kompletu informacji program powinien wywołać funkcję calculate z odpowiednimi parametrami a wynik jej działania wyświetlić (jako liczbę całkowitą).
+
+W przypadku podania błędnych danych program powinien wyświetlić komunikat Incorrect input data i zakończyć działanie z kodem błędu 2.
+W przypadku wprowadzenia przez użytkownika błędnych znaków program powinien wyświetlić komunikat Incorrect input i niezwłocznie zakończyć działanie z kodem błędu 1.
+Uwagi
+W programie nie wolno używać operatora [], za wyjątkiem deklaracji tablicy.
+Na potrzeby tego zadania przyjmij zero jako wynik dzielenia w przypadku zerowego dzielnika.
+Przykładowa interakcja z programem -- dane poprawne:
+
+Enter numbers: 8 3⏎
+Choose an operation: 0⏎
+Result: 11
+Przykładowa interakcja z programem -- błędne dane:
+
+Enter numbers: NqYmnrzzqG 6⏎
+Incorrect input
+Enter numbers: -6 10⏎
+Choose an operation: -1⏎
+Incorrect input data

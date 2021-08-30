@@ -1,0 +1,80 @@
+Napisz program do losowego uruchamiania funkcji, danych zbiorem wskaźników.
+
+W tym celu przygotuj funkcje rysujące na konsoli wielkanocne ozdoby (kurczaka, jajko i królika). Funkcje powinny mieć następujące prototypy:
+
+void print_chicken(void);
+void print_egg(void);
+void print_rabbit(void);
+Funkcje mają wyświetlać odpowiednio:
+
+ MM⏎
+<' \___/|⏎
+  \_  _/⏎
+    ][⏎
+  .~~~.⏎
+ /     \⏎
+(\/\/\/\)⏎
+ \     /⏎
+  `~~~`⏎
+ \\   //⏎
+  )\-/(⏎
+  /o o\⏎
+ ( =T= )⏎
+ /'---'\⏎
+Przygotuj funkcję, która będzie generowała sekwencję (tablicę) size wylosowanych wskaźników na funkcje. Podczas losowania korzystaj z trzech funkcji, danych w parametrami.
+
+Funckja powinna nazywać się easter a przykładowe wywołanie funkcji powinno wyglądać następująco:
+
+int size = 45;
+void (**funcs)(void) = easter(size, print_chicken, print_egg, print_rabbit);
+funcs[0](); // uruchomienie pierwszej wylosowanej funkcji (z 45)
+Wartość zwracana:
+
+W przypadku przekazania błędnych danych funkcja powinna zwrócić NULL.
+Deklaracje wszystkich funkcji umieść w pliku nagłówkowym functions.h, a definicje w pliku functions.c.
+
+Program powinien pobrać od użytkownika długość sekwencji wygenerowania, wygenerować ją a następnie wyświetlić na konsoli poszczególne ozdoby wielkanocne, oddzielone pojedynczym znakiem nowej linii.
+
+W przypadku niemożliwości zaalokowania niezbędnej ilości pamięci przerwij niezwłocznie program z komunikatem Failed to allocate memory i kodem błędu 8.
+Jeśli użytkownik podał nieprawidłowy rozmiar tablicy, przerwij program z komunikatem Incorrect input data i kodem błędu 2.
+W przypadku wprowadzenia przez użytkownika nieprawidłowych znaków program powinien zostać przerwany z kodem błędu 1 i komunikatem Incorrect input.
+Przykładowa interakcja z programem -- sukces:
+
+Podaj liczbe funkcji do wygenerowania: 4⏎
+ \\   //⏎
+  )\-/(⏎
+  /o o\⏎
+ ( =T= )⏎
+ /'---'\⏎
+⏎
+ \\   //⏎
+  )\-/(⏎
+  /o o\⏎
+ ( =T= )⏎
+ /'---'\⏎
+⏎
+  .~~~.⏎
+ /     \⏎
+(\/\/\/\)⏎
+ \     /⏎
+  `~~~`⏎
+⏎
+ MM⏎
+<' \___/|⏎
+  \_  _/⏎
+    ][⏎
+Przykładowa interakcja z programem -- błąd danych:
+
+Podaj liczbe funkcji do wygenerowania: hqziMnR⏎
+Incorrect input
+Podaj liczbe funkcji do wygenerowania: -8⏎
+Incorrect input data
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit sterty: 40 bajtów
+
+Podaj liczbe funkcji do wygenerowania9⏎
+Failed to allocate memory⏎
+Uwagi
+W programie nie wolno korzystać z operatora [].
+ASCII Art skopiuj bezpośrednio do swojego programu; pamiętaj o specjalnym potraktowaniu znaku backslash (\)

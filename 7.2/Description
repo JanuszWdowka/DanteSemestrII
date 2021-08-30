@@ -1,0 +1,47 @@
+Napisz i przetestuj funkcję łączącą N tekstów do wspólnego bufora o następującym wywołaniu:
+
+concatenate(res, 20, 3, "Ala", "ma", "kota");
+Funkcja ma przyjmować w parametrze:
+
+bufor tekstowy,
+rozmiar bufora (pojemność),
+liczbę tekstów oraz
+kolejne teksty.
+Wyjściem mają być teksty oddzielone spacjami.
+
+W przypadku sukcesu funkcja powinna zwrócić wartość 0,
+w przypadku błędnych danych wejściowych wartość 1,
+a w przypadku, kiedy pojemność bufora jest za mała funkcja powinna zwrócić wartość 2.
+Napisz program, który pobierze od użytkownika liczbę tekstów do wczytania (od 2 do 4), a następnie wczyta te teksty i wykorzystując przygotowaną wcześniej funkcję połączy je w jeden tekst.
+
+Przygotuj tablicę dwuwymiarową, alokowaną dynamicznie, na teksty pobierane od użytkownika oraz tablicę jednowymiarową do przechowania wyniku połączonych tekstów.
+
+Tablica dwuwymiarowa powinna umożliwić przechowanie maksymalnie 4 tekstów o długości 1000 znaków każdy. Natomiast tablica jednowymiarowa powinna pozwolić na zapis tych tekstów w formie połączonej spacjami.
+
+W przypadku niepowodzenia alokacji pamięci program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+W przypadku wprowadzenia błędnych znaków program powinien wyświetlić komunikat Incorrect input i zakończyć działanie z kodem błędu 1.
+W przypadku błędnych danych wejściowych komunikat Incorrect input data i zakończyć działanie z kodem błędu 2.
+Przyjmij założenie, że długość tekstów nie przekroczy 1000 znaków. Jeżeli podany tekst będzie dłuższy, to pozostałe znaki powinny zostać zignorowane.
+
+Program powinien wyświetlić wynik połączenia podanych tekstów w jeden tekst (w jednej linii, bez dodatkowych znaków).
+
+Przykładowa interakcja z programem -- sukces:
+
+Podaj liczbe tekstow do wprowadzenia: 3⏎
+Podaj teksty: "The man who has confidence in himself gains the confidence of others."- Hasidic Proverb⏎
+Teaching is a very noble profession that shapes the character, caliber, and future of an individual. If the people remember me as a good teacher, that will be the biggest honour for me. - A. P. J. Abdul Kalam⏎
+A woman is like a tea bag; you never know how strong it is until it's in hot water. - Eleanor Roosevelt⏎
+"The man who has confidence in himself gains the confidence of others."- Hasidic Proverb Teaching is a very noble profession that shapes the character, caliber, and future of an individual. If the people remember me as a good teacher, that will be the biggest honour for me. - A. P. J. Abdul Kalam A woman is like a tea bag; you never know how strong it is until it's in hot water. - Eleanor Roosevelt
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit sterty: 6038
+
+Failed to allocate memory⏎
+Przykładowa interakcja z programem -- błąd danych wejściowych:
+
+Podaj liczbe tekstow do wprowadzenia: 6⏎
+Incorrect input data
+Podaj liczbe tekstow do wprowadzenia: KYtdkxB⏎
+Incorrect input
+Uwagi
+W programie nie wolno używać operatora [].

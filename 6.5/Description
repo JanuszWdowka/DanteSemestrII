@@ -1,0 +1,66 @@
+Napisz funkcję, która przetwarza znaki w tekście za pomocą funkcji podanej przez wskaźnik. Wskaźnik ma być zbudowany w oparciu o następujący prototyp:
+
+char func_name(char ch);
+Zadaniem funkcji o prototypie func_name jest przetworzyć wartość parametru ch a wartość przetworzoną zwrócić.
+
+Przygotuj następujące funkcje:
+
+lower_to_upper - do zamiany w tekście małych liter na duże,
+upper_to_lower - do zamiany w tekście dużych liter na na małe,
+space_to_dash - do zamiany w tekście spacji na podłogi (_),
+reverse_letter - do odwracania w tekście liter (to znaczy zamiany a na z, b na y, itd).
+Przykładowe wywołanie funkcji (o nazwie letter_modifier) przetwarzającej znaki powinno wyglądać następująco (pierwszy parametr musi posiadać modyfikator const):
+
+const char* input_text = "Text";
+char *res = letter_modifier(input_text, lower_to_uper);
+Wartość zwracana:
+
+W przypadku, kiedy nie będzie możliwa modyfikacja tekstu, funkcja powinna zwrócić wartość NULL.
+Deklaracje wszystkich funkcji umieść w pliku nagłówkowym char_operations.h, a definicje w pliku char_operations.c.
+
+Napisz program, który przetestuje działanie przygotowanej przez Ciebie funkcji letter_modifier. W tym celu zadeklaruj w funkcji main tablicę wskaźników na funkcje (funcs) i przypisz do kolejnych komórek adresy poszczególnych funkcji przetwarzających znaki.
+
+Przygotuj bufor do przechowania tekstu podanego przez użytkownika, alokowanego dynamicznie na 1001 (1000 znaków) bajtów.
+
+Jeżeli alokacja pamięci się nie powiedzie program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+Następnie program powinien pobrać od użytkownika tekst do zmodyfikowania oraz typ modyfikacji, identyfikowany następującymi stałymi liczbowymi:
+
+0 - małe litery na duże,
+
+1 - duże litery na małe,
+
+2 - spacje na podłogi,
+
+3 - odwracanie liter.
+
+W przypadku wprowadzenia przez użytkownika błędnych znaków, program powinien wyświetlić komunikat Incorrect input i zakończyć działanie z kodem błędu 1
+
+W przypadku podania błędnych danych program powinien wyświetlić komunikat Incorrect input data i zakończyć działanie z kodem błędu 2.
+
+W przypadku braku pamięci na wygenerowanie zmodyfikowanego tekstu, program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+
+Przykładowa interakcja z programem -- sukces:
+
+Podaj tekst: Whenever you find yourself on the side of the majority, it is time to reform (or pause and reflect). - Mark Twain⏎
+Podaj rodzaj operacji: 2⏎
+Whenever_you_find_yourself_on_the_side_of_the_majority,_it_is_time_to_reform_(or_pause_and_reflect)._-_Mark_Twain⏎
+Podaj tekst: "I think Microsoft named .Net so it wouldn't show up in a Unix directory listing." - Oktal⏎
+Podaj rodzaj operacji: 3⏎
+"R gsrmp Nrxilhlug mznvw .Mvg hl rg dlfowm'g hsld fk rm z Fmrc wrivxglib orhgrmt." - Lpgzo⏎
+Przykładowa interakcja z programem -- brak pamięci:
+
+Ograniczenie sterty: 40 bajtów
+
+Failed to allocate memory⏎
+Ograniczenie sterty: 1020 bajtów
+
+Podaj tekst: It is better to be feared than loved, if you cannot be both. - Niccolo Machiavelli⏎
+Podaj rodzaj operacji: 0⏎
+Failed to allocate memory⏎
+Przykładowa interakcja z programem -- błąd danych:
+
+Podaj tekst: Technology is teaching us to be human again.-Simon Mainwaring⏎
+Podaj rodzaj operacji: 8⏎
+Incorrect input data
+Uwagi
+W programie nie wolno używać operatora [], za wyjątkiem deklaracji tablicy.

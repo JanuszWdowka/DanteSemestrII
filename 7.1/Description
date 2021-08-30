@@ -1,0 +1,32 @@
+Przygotuj funkcję liczącą sumę oraz średnią z num liczb całkowitych, przekazanych w dodatkowych parametrach. Prototyp funkcji powinien wyglądać następująco:
+
+int stats(int *sum, float *avg, int num,...) ;
+Funkcja przyjmuje
+
+wskaźnik na dwie zmienne, do których ma zostać zapisana obliczona suma oraz średnia,
+liczbę parametrów oraz
+zestaw liczb, dla których mają zostać wykonane obliczenia.
+Funkcja powinna zwrócić wartość:
+
+0 - jeżeli obliczenia zostały wykonane poprawnie lub
+1 - w przeciwnym przypadku.
+Napisz program, który przetestuje przygotowaną przez Ciebie funkcję dla od jednej do trzech liczb.
+
+Program ma pobrać od użytkownika liczbę liczb, dla której użytkownik chce wyznaczyć statystykę a następnie wartości tych liczb.
+
+Na koniec program powinien wyświetlić w jednej linii sumę oraz wartość średnią pobranych liczb.
+
+W przypadku wprowadzenia błędnych znaków, program powinien wyświetlić komunikat Incorrect input i zakończyć działanie z kodem błędu 1.
+W przypadku wprowadzenia nieprawidłowej liczby liczb, program powinien wyświetlić komunikat Incorrect input data i zakończyć działanie z kodem błędu 2.
+Przykładowa interakcja z programem -- sukces:
+
+Enter number of elements: 2⏎
+Enter numbers: 859 809 ⏎
+1668 834.000000⏎
+Przykładowa interakcja z programem -- błąd danych:
+
+Enter number of elements: 7⏎
+Incorrect input data
+Enter number of elements: 2⏎
+Enter numbers: VtcAerJLx⏎
+Incorrect input

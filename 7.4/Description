@@ -1,0 +1,72 @@
+Napisz i przetestuj funkcję łączącą N tekstów do wspólnego bufora i zwracającą ten bufor.
+
+Funkcja może przydzielić tylko tyle pamięci ile będzie potrzebne na przechowanie tekstu wyjściowego. Poszczególne teksty mają być oddzielone spacjami.
+
+Funkcja ma przyjmować w parametrze:
+
+liczbę tekstów oraz
+kolejne teksty.
+Wartość zwracana:
+
+W przypadku sukcesu funkcja powinna zwrócić wskaźnik na scalony tekst (rozdzielony spacjami),
+w przypadku błędnych danych wejściowych lub niepowodzenia alokacji pamięci NULL.
+Przykładowe wywołanie funkcji powinno wyglądać następująco:
+
+char* msg = concatenate(3, "Ala", "ma", "kota");
+...
+free(msg);
+Napisz program, który pobierze od użytkownika liczbę tekstów do wczytania (od 2 do 4), a następnie właściwie teksty i wykorzystując przygotowaną wcześniej funkcję połączy je w jeden tekst.
+
+Przed wczytywaniem tekstów przygotuj tablicę dwuwymiarową, alokowaną dynamicznie, na te teksty. Tablica powinna umożliwić przechowanie maksymalnie 4 tekstów o długości 1000 znaków każdy.
+
+W przypadku niepowodzenia alokacji pamięci program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+W przypadku wprowadzenia błędnych znaków program powinien wyświetlić komunikat Incorrect input i zakończyć działanie z kodem błędu 1.
+W przypadku błędnych danych wejściowych komunikat Incorrect input data i zakończyć działanie z kodem błędu 2.
+Przyjmij założenie, że długość tekstów wejściowych nie przekroczy 1000 znaków. Jeżeli podany tekst będzie dłuższy, to pozostałe znaki powinny zostać zignorowane.
+
+Program powinien wyświetlić wynik połączenia podanych tekstów w jeden tekst.
+
+Przykładowa interakcja z programem -- sukces:
+
+Podaj liczbe tekstow do wprowadzenia: 4⏎
+Podaj teksty: Two things are infinite: the universe and human stupidity; and I'm not sure about the universe. - Albert Einstein⏎
+It is impossible to work in information technology without also engaging in social engineering. - Jaron Lanier⏎
+Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live - John Woods⏎
+The real problem is not whether machines think but whether men do.-B.F. Skinner⏎
+Two things are infinite: the universe and human stupidity; and I'm not sure about the universe. - Albert Einstein It is impossible to work in information technology without also engaging in social engineering. - Jaron Lanier Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live - John Woods The real problem is not whether machines think but whether men do.-B.F. Skinner
+Podaj liczbe tekstow do wprowadzenia: 3⏎
+Podaj teksty: Wise men speak because they have something to say; fools because they have to say something. - Plato⏎
+"Most good programmers do programming not because they expect to get paid or get adulation by the public, but because it is fun to program." - Linus Torvalds⏎
+⏎
+Wise men speak because they have something to say; fools because they have to say something. - Plato "Most good programmers do programming not because they expect to get paid or get adulation by the public, but because it is fun to program." - Linus Torvalds  
+Uwaga - trzeci tekst jest pusty.
+
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit sterty: 3035 bajtów
+
+Failed to allocate memory⏎
+Limit sterty: 4036 bajtów
+
+Podaj liczbe tekstow do wprowadzenia: 4⏎
+Podaj teksty: The things you do for yourself are gone when you are gone, but the things you do for others remain as your legacy. - Kalu Ndukwe Kalu⏎
+Successful weight loss takes programming, not willpower. - Phil McGraw⏎
+"Man, the living creature, the creating individual, is always more important than any established style or system." - Bruce Lee⏎
+"Imagine your life is perfect in every respect; what would it look like?"- Brian Tracy⏎
+Failed to allocate memory⏎
+Limit sterty: 4456 bajtów
+
+Podaj liczbe tekstow do wprowadzenia: 4⏎
+Podaj teksty: The things you do for yourself are gone when you are gone, but the things you do for others remain as your legacy. - Kalu Ndukwe Kalu⏎
+Successful weight loss takes programming, not willpower. - Phil McGraw⏎
+"Man, the living creature, the creating individual, is always more important than any established style or system." - Bruce Lee⏎
+"Imagine your life is perfect in every respect; what would it look like?"- Brian Tracy⏎
+The things you do for yourself are gone when you are gone, but the things you do for others remain as your legacy. - Kalu Ndukwe Kalu Successful weight loss takes programming, not willpower. - Phil McGraw "Man, the living creature, the creating individual, is always more important than any established style or system." - Bruce Lee "Imagine your life is perfect in every respect; what would it look like?"- Brian Tracy⏎
+Przykładowa interakcja z programem -- błąd danych wejściowych:
+
+Podaj liczbe tekstow do wprowadzenia: 9⏎
+Incorrect input data
+Podaj liczbe tekstow do wprowadzenia: wFYXVCbELD⏎
+Incorrect input
+Uwagi
+W programie nie wolno używać operatora [].

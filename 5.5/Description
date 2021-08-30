@@ -1,0 +1,136 @@
+Przygotuj strukturę do przechowywania zbioru dużych liczb całkowitych ze znakiem. Liczby mogą mieć dowolnie wiele cyfr. Struktura powinna wyglądać następująco:
+
+struct big_numbers_t {
+  int size;
+  int capacity;
+  char **big_number;
+};
+Pola:
+
+size - liczba dużych liczb, znajdujących się w strukturze big_numbers_t.
+capacity - pojemność struktury (maksymalna liczba liczb, jaką można w niej przechowywać).
+big_numbers - dwuwymiarowa tablica liczb. Pamiętaj, że liczby mogą mieć różną długość.
+Napisz funkcje do: przydzielania pamięci na zbiór liczb, do tworzenia struktury zbioru liczb, do zwolnienia pamięci, do wyświetlania zawartości struktury oraz do dodawania liczb do struktury. Funkcje powinny mieć następujące prototypy:
+
+int create(struct big_numbers_t *bn, int capacity);
+int create_big_numbers(struct big_numbers_t **bn, int capacity);
+
+void destroy(struct big_numbers_t *bn);
+void destroy_big_numbers(struct big_numbers_t **bn);
+
+int add_big_number(struct big_numbers_t *bn, const char *big_number);
+
+void display(const struct big_numbers_t *bn);
+Deklaracje wszystkich funkcji oraz struktur powinny zostać umieszczone w pliku big_numbers.h, a definicje w pliku big_numbers.c.
+
+int create(struct big_numbers_t *bn, int capacity);
+Funkcja inicjuje strukturę bn tak, aby ta mogła przechowywać capacity dużych liczb. Funkcja zwraca:
+
+0 - w przypadku sukcesu,
+1 - w przypadku podania błędnych danych lub
+2 - jeżeli nie udało się przydzielić pamięci na wskaźniki.
+Funkcja musi ustawić odpowiednie wartości w poszczególnych polach struktury bn.
+
+int create_big_numbers(struct big_numbers_t **bn, int capacity);
+Funkcja przydziela pamięć dla struktury big_numbers_t, danej wskaźnikiem bn oraz inicjuje ją.
+
+Funkcja zwraca: 0 w przypadku sukcesu, 1 w przypadku podania błędnych danych lub 2 jeżeli nie udało się przydzielić pamięci.
+
+W ostatnim przypadku funkcja powinna zwolnić całą przydzieloną przez siebie pamięć.
+
+void destroy(struct big_numbers_t *bn);
+Funkcja zwalnia całą pamięć, przydzieloną elementom w strukturze bn. W przypadku błędnych danych funkcja nie podejmuje jakichkolwiek akcji. Ponadto, jeśli w strukturze są dodane duże liczby, one również muszą zostać zwolnione.
+
+void destroy_big_numbers(struct big_numbers_t **bn);
+Funkcja zwalnia pamięć przydzieloną wszystkim elementom struktury bn oraz pamięć samej struktury. Ostatecznie funkcja powinna oznaczyć brak struktury, zapisując NULL pod *bn. W przypadku błędnych danych funkcja nie podejmuje jakichkolwiek akcji.
+
+void display(const struct big_numbers_t *bn);
+Funkcja wyświetla wszystkie liczby przechowywane w strukturze bn, w oddzielnych liniach. W przypadku gdy podano niewłaściwa argumenty, struktura bn jest pusta lub uszkodzona to funkcja nie powinna nic wyświetlać.
+
+Przykład dla 7 liczb:
+
+6⏎
+7⏎
+9⏎
+7⏎
+6⏎
+5⏎
+2⏎
+int add_big_number(struct big_numbers_t *bn, const char *big_number);
+Funkcja dodaje kopię liczby big_number do struktury bn, aktualizując równocześnie wartości odpowiednich pól tej struktury, zgodnie z ich sensem oraz przeznaczeniem.
+
+Funkcja zwraca:
+
+0 w przypadku sukcesu,
+1 w przypadku błędnych danych wejściowych,
+2 w przypadku kiedy nie uda się przydzielić pamięci na kopię liczby big_number,
+3 w przypadku braku miejsca na nową liczbą w strukturze bn.
+Napisz program, który utworzy strukturę do przechowywania dużych liczb, przygotowaną na 10 elementów, a następnie będzie pobierał od użytkownika duże i dodawał je do struktury. Do pobierania liczb przygotuj bufor na 200 cyfr (alokowany dynamicznie).
+
+Jeżeli nie uda się przydzielić pamięci na strukturę dużych liczb lub na bufor do ich wprowadzania, program powinien niezwłocznie wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+
+Po przygotowaniu bufora i struktury na duże liczby, należy pobierać od użytkownika kolejne liczby aż ten nie wprowadzi pustego ciągu znaków lub do zapełnienia bufora. Jeżeli liczba podana przez użytkownika jest dłuższa, należy wykorzystać tylko 200 najbardziej znaczących cyfr. Pamiętaj, że niewczytana cześć liczby pozostanie w buforze klawiatury i zostanie "wczytana" podczas uruchomienia kolejnej funkcji czytającej dane. Jest to niepożądane i należy temu zapobiec.
+
+Jeżeli nie uda dodać kolejnej liczby do struktury to program powinien wyświetlić komunikat Buffer is full i przerwać pobieranie danych.
+Jeżeli nie uda się przydzielić pamięci na kolejną liczbę w strukturze to program powinien wyświetlić komunikat Failed to allocate memory i przerwać pobieranie danych.
+W przypadku wprowadzenia ciągu znaków, niebędącego poprawną liczbą całkowitą ze znakiem, program powinien wyświetlić komunikat Incorrect input i kontynuować wczytywanie liczb.
+Po zakończeniu (bądź przerwaniu) pobierania liczb program powinien wyświetlić wszystkie liczby, znajdujące się w strukturze big_numbers_t (za pomocą funkcji display). Jeżeli w strukturze nie ma żadnych liczb to program powinien poinformować o tym użytkownika komunikatem Buffer is empty.
+
+Przykładowa interakcja z programem (4 poprawne liczby):
+
+Podaj liczby: 73913804221177610467460192289956140235316904934703⏎
+68306706189224012168975654198381901599549718661100⏎
+-6148428563315540211625312026124932400291484160785⏎
+-63688471217546343631992680969344671436340417057462⏎
+⏎
+73913804221177610467460192289956140235316904934703⏎
+68306706189224012168975654198381901599549718661100⏎
+-6148428563315540211625312026124932400291484160785⏎
+-63688471217546343631992680969344671436340417057462⏎
+Przykładowa interakcja z programem (próba wprowadzenia 11 liczb):
+
+Podaj liczby: -69922835099581018283067212643949193295200568762374⏎
+-79853021501718547246528461483243962389720126261927⏎
+9683280058569356076195108651310070421351761909007⏎
+-16335403137767306629862572873034294487146859580587⏎
+37152115508824972046837822392885493999422126546923⏎
+14430816178949739873851235341799793592791969605400⏎
+1075568430409453803024835430793725283524773435747⏎
+-49934924298521806945467756527301225148983762374154⏎
+41779620934205120313042920293884356912028235555583⏎
+29699927122288219828931606455420569971320489697727⏎
+26305089035778995636845808889097818296935794132846⏎
+Buffer is full⏎
+-69922835099581018283067212643949193295200568762374⏎
+-79853021501718547246528461483243962389720126261927⏎
+9683280058569356076195108651310070421351761909007⏎
+-16335403137767306629862572873034294487146859580587⏎
+37152115508824972046837822392885493999422126546923⏎
+14430816178949739873851235341799793592791969605400⏎
+1075568430409453803024835430793725283524773435747⏎
+-49934924298521806945467756527301225148983762374154⏎
+41779620934205120313042920293884356912028235555583⏎
+29699927122288219828931606455420569971320489697727⏎
+Przykładowa interakcja z programem (błąd w jednej z liczb):
+
+Podaj liczby: 100⏎
+-200⏎
+300⏎
+0-400⏎
+Incorrect input⏎
+600⏎
+⏎
+100⏎
+-200⏎
+300⏎
+600⏎
+Przykładowa interakcja z programem (brak pamięci na wszystkie, wpisywane przez użytkownika, liczby):
+
+Podaj liczby: 8000⏎
+8809⏎
+Failed to allocate memory⏎
+8000⏎
+Uwagi
+W programie nie można korzystać z operatora [].
+W programie nie wolno deklarować zmiennych typu big_numbers_t. Dopuszczalne są wyłącznie typy wskaźnikowe na big_numbers_t.
+Ze względów testowych program najpierw powinien przydzielić pamięć na strukturę, a następnie na bufor znaków.

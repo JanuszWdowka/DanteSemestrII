@@ -1,0 +1,62 @@
+Napisz funkcje do sumowania i odejmowania dwóch długich liczb. Prototypy funkcji powinny wyglądać następująco:
+
+int subtract(const char* number1, const char* number2, char** result);
+int add(const char* number1, const char* number2, char** result);
+Parametry:
+
+number1, number2 - wskaźniki na tablice znaków, w których znajdują się liczby do zsumowania,
+result - wskaźnik na wskaźnik na tablicę znaków, do której ma być zapisana suma lub różnica liczb number1 i number2. Funkcje muszą same zaalokować pamięć; pamiętaj o dodaniu na końcu ciągu terminatora.
+Wartość zwracana: 0 - jeśli operacja została wykonana poprawnie 1 - w przypadku błędnych danych wejściowych 2 - kiedy przekazane do funkcji ciągi nie są poprawnymi liczbami całkowitymi 3 - w przypadku kiedy nie udało zaalokować się pamięci na wynik. Funkcje mogą zaalokować maksymalnie tyle pamięci, ile jest potrzebne do przechowania dłuższej z liczb plus 2 bajty.
+
+Dodatkowo przygotuj funkcje do sprawdzania czy wprowadzony ciąg znaków jest poprawną liczbą całkowitą oraz do porównywania dwóch liczb ze sobą. Prototypy funkcji powinny wyglądać następująco:
+
+int validate(const char *number);
+int compare(const char* number1, const char* number2);
+Funkcja validate zwraca:
+
+-1 - w przypadku błędnych danych wejściowych
+0 - jeśli ciąg znaków number tworzy poprawną liczbę całkowitą,
+2 - kiedy przekazany do funkcji ciąg nie są poprawną liczbą całkowitą,
+Funkcja compare zwraca
+
+0, jeśli liczby reprezentowane przez ciągi znaków number1 i number2 są sobie równe
+
+1 jeżeli liczba number1 jest większa od number2,
+
+-1 jeżeli liczba number1 jest mniejsza od number2.
+
+2 w przypadku błędnych danych wejściowych,
+
+3 kiedy przekazane do funkcji ciągi nie są poprawnymi liczbami całkowitymi.
+
+Napisz program, który pobierze od użytkownika dwie duże liczby i wykona na nich operacje sumowania i odejmowania.
+
+W tym celu przygotuj dwie tablice alokowane dynamicznie na obie liczby, przygotowane na 200 znaków każda (+terminator). W przypadku, kiedy alokacja pamięci się nie powiedzie, program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+
+Następnie wczytaj dane obu liczb. Jeżeli ciąg wejściowy będzie dłuższy to pozostałe cyfry powinny zostać zignorowane. Po pobraniu program powinien wyświetlić w osobnych liniach sumę oraz różnicę wprowadzonych liczb.
+
+Jeżeli któraś z liczb jest niepoprawna program powinien wyświetlić komunikat Incorrect input i zakończyć działanie z kodem błędu 1.
+Jeżeli nie udało się zaalokować pamięci na wynik, program powinien poinformować o tym użytkownika komunikatem Failed to allocate memory i zwrócić wartość 8.
+Przykładowa interakcja z programem -- sukces:
+
+Podaj pierwsza liczbe: 4090350609380895752793307278359269332921073037608372555390331892474725189725732443828406700⏎
+Podaj druga liczbe: 21471382403494756415407815883092060049476923221055337440086495513124525134901312688563999⏎
+4111821991784390509208715094242361392970549960829427892830418387987849714860633756516970699⏎
+4068879226977400996377899462476177272871596114387317217950245396961600664590831131139842701
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit sterty: 201 bajtów
+
+Failed to allocate memory⏎
+Limit sterty: 402 bajty
+
+Podaj pierwsza liczbe: 311⏎
+Podaj druga liczbe: -84⏎
+Failed to allocate memory⏎
+Przykładowa interakcja z programem -- błąd danych wejściowych:
+
+Podaj pierwsza liczbe: 21453389759956566555151828991358073891210728041608428205754061692536696022602149923604153028763140623935947766347376195375380049431463805169678909883074132860⏎
+Podaj druga liczbe: 2670228816968114231173263065375035902257959813823341938388059611766052897457280704880680433869713224597960971060614757378446133237051054231673243107681825373805N⏎
+Incorrect input
+Uwagi
+W programie nie wolno korzystać z operatora []!

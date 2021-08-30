@@ -1,0 +1,97 @@
+Napisz funkcję, która sortuje rosnąco i w miejscu tablicę liczb typu int za pomocą funkcji komparującej, danej wskaźnikiem. Wskaźnik ma być zbudowany w oparciu o następujący prototyp:
+
+int func_name(int a, int b);
+Przygotuj funkcję porównując dwie liczby pod względem:
+
+ich wartości (nazwa comp_int),
+ich wartości bezwzględnej (nazwa comp_int_abs),
+liczby cyfr w nich występujących (nazwa comp_int_length) oraz
+sumy ich cyfr (nazwa comp_int_digits_sum).
+Komparatory (rodzina func_name), realizujące dane kryterium sortowania, mają zwracać następujące wartości:
+
+ujemne gdy para liczb 
+(
+a
+,
+b
+)
+ jest uporządkowana rosnąco (
+a
+<
+b
+), lub
+dodatnie gdy para liczb 
+(
+a
+,
+b
+)
+ jest uporządkowana malejąco (
+a
+>
+b
+), lub
+zero gdy 
+a
+=
+b
+.
+Przygotuj funkcję sort_int, której przykładowe wywołanie powinno wyglądać następująco:
+
+int tab[] = {1, 3, 1};
+int res = sort_int(tab, 3, comp_int);
+Wartość zwracana:
+
+0 - w przypadku sukcesu lub
+1 - w przypadku porażki.
+Deklaracje wszystkich funkcji umieść w pliku nagłówkowym comparators.h, a definicje w pliku comparators.c.
+
+Napisz program, który przetestuje działanie przygotowanych przez Ciebie funkcji.
+
+W pierwszej kolejności przygotuj dynamicznie alokowaną tablicę na wskaźniki do funkcji komparujących i uzupełnij ją odpowiednimi wpisami. Tablicę nazwij funcs. Na brak pamięci zareaguj komunikatem Failed to allocate memory oraz kodem błędu 8.
+
+Następnie pobierz od użytkownika wartości do posortowania. Pobieranie danych zacznij od pytania od liczbę wartości oraz przygotowania takiego bufora pamięci, który będzie mógł pomieścić je wszystkie.
+
+W przypadku wprowadzenia przez użytkownika błędnych znaków, program powinien wyświetlić komunikat Incorrect input i zakończyć działanie z kodem błędu 1
+W przypadku podania błędnych danych program powinien wyświetlić komunikat Incorrect input data i zakończyć działanie z kodem błędu 2
+W przypadku braku pamięci na te dane zareaguj komunikatem Failed to allocate memory oraz kodem błędu 8.
+Po pobraniu danych do sortowania program powinien pobrać kryterium sortowania (jako liczbę całkowitą, przewidź reakcję na błędne dane), zgodnie z następującym wzorcem:
+
+0 - ze względu na wartość podanych liczb,
+1 - ze względu na moduł podanych liczb,
+2 - ze względu na liczby cyfr podanych liczbach,
+3 - ze względu na sumy cyfr w podanych liczbach.
+Następnie posortuj dane z wybranym kryterium i wyświetl wyniki na ekranie.
+
+Przykładowa interakcja z programem -- ok, sortowanie ze względu na sumę cyfr:
+
+Podaj długość tablicy: 19⏎
+Podaj liczby: -791227 -34702 -6722 -4 1385 -31784 42829 77718 -35 -110244 -246796 9069066 -89474 8938 48593 54686 93 -1182 -922 ⏎
+Podaj rodzaj operacji: 3⏎
+-4 -35 -110244 93 -1182 -922 -34702 -6722 1385 -31784 42829 -791227 8938 48593 54686 77718 -89474 -246796 9069066
+Przykładowa interakcja z programem -- błąd danych:
+
+Podaj długość tablicy: 9⏎
+Podaj liczby: -738 53526 71227 1 -192 129164 -216 -3 7788958 ⏎
+Podaj rodzaj operacji4⏎
+Incorrect input data
+Podaj długość tablicy: 9⏎
+Podaj liczby: QHlNenc⏎
+Incorrect input
+Podaj długość tablicy: 0⏎
+Incorrect input data
+Podaj długość tablicy: 13⏎
+Podaj liczby: 1236314 -74 -101 -396115 -27350 -6844267 -8 -592 5147 -597880 -937 42 1 ⏎
+Podaj rodzaj operacji: -5⏎
+Incorrect input data
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit starty: 0 bajtów
+
+Failed to allocate memory⏎
+Limit sterty: 40 bajtów
+
+Podaj długość tablicy: 6⏎
+Failed to allocate memory⏎
+Uwagi
+W programie nie wolno korzystać z operatora [].

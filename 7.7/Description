@@ -1,0 +1,37 @@
+Przygotuj własne wersje funkcji printf i scanf. Nazwij je my_printf oraz my_scanf.
+
+Funkcja my_printf ma obsługiwać następujące symbole formatujące:
+
+%s - tekst (wskaźnik na znak, terminator='\x0'),
+%d - liczba całkowita 32-bitowa ze znakiem,
+%f - liczba zmiennoprzecinkowa podwójnej precyzji, do wyświetlenia z dokładnością 5 miejsc po przecinku,
+%p - struktura point_t (z zadania 25.3 W punkt) - punkt o dwóch współrzędnych całkowitych, do wyświetlenia w formie (x y),
+Wartość zwracana:
+
+Funkcja zwraca liczbę wyświetlonych znaków.
+Funkcja my_scanf ma obsługiwać następujące formaty:
+
+%d - liczba całkowita 32-bitowa ze znakiem,
+%f - liczba zmiennoprzecinkowa podwójnej precyzji, wpisywana tylko w formie dziesiętnej (nie naukowej!),
+%p - struktura point_t (z zadania 25.3 W punkt) - punkt o dwóch współrzędnych całkowitych w postaci "(x y)". Punkt należy liczyć jako dwa elementy pobrane.
+Wartość zwracana:
+
+Funkcja zwraca liczbę poprawnie pobranych elementów.
+W tym zadaniu testowane są jedynie powyższe. Jednak dla poprawności kompilacji zapewnij funkcję main jedynie zwracającą kod błędu 0.
+
+Przykłady my_printf:
+
+my_printf("%d", 1525091881), wynik=10, wyjście: 1525091881.
+my_printf("%p", (struct point_t){ 687, 178 }), wynik=9, wyjście: (687 178).
+my_printf("%f", -807.7366290932838), wynik=10, wyjście: -807.73662.
+Przykład my_scanf:
+
+struct point_t a;
+my_printf("Wpisz punkt w postaci (x y): ");
+int res = my_scanf("%p", &a);
+my_printf("Wynik: [%d;%d;%d]", a.x, a.y, res);
+Wpisz punkt w postaci (x y): (111 222)⏎
+Wynik: [111;222;2]
+Uwagi
+W programie nie wolno używać operatora [] oraz funkcji alokujących pamięć.
+W programie nie wolno używać funkcji printf oraz scanf i ich pochodnych.

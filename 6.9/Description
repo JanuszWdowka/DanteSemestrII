@@ -1,0 +1,226 @@
+Napisz program do poruszania postacią gracza na planszy 2D.
+
+W tym celu przygotuj strukturę do przechowywania planszy do gry struct board_t o następującej postaci:
+
+struct board_t
+{
+    //pozycja gracza
+    struct point_t player;
+    
+    // wskaźnik na planszę, wiersze powinny być zakończone terminatorem
+    char **board;
+    
+    // szerokość oraz wysokość planszy do gry
+    int width;
+    int height;
+    
+    // flaga informująca o tym, czy gracz został dodany do planszy, czy nie
+    unsigned char is_init:1; 
+    
+    
+    // Funkcja odpowiada za poruszenie gracza o jedną komórkę w górę.
+    // W przypadku dojścia do krawędzi gracz powinien znaleźć się w ostatnim wierszu planszy.
+    struct board_t* (*move_player_up)(struct board_t*);
+    
+    // funkcja odpowiada za poruszenie gracza o jedną komórkę w dół.
+    // W przypadku dojścia do krawędzi gracz powinien znaleźć się w pierwszym wierszu planszy.
+    struct board_t* (*move_player_down)(struct board_t*); 
+    
+    // funkcja odpowiada za poruszenie gracza o jedną komórkę w lewo.
+    // W przypadku dojścia do krawędzi gracz powinien znaleźć się w ostatniej kolumnie planszy.
+    struct board_t* (*move_player_left)(struct board_t*); 
+    
+    // funkcja odpowiada za poruszenie gracza o jedną komórkę w prawo.
+    // W przypadku dojścia do krawędzi gracz powinien znaleźć się w pierwszej kolumnie planszy.
+    struct board_t* (*move_player_right)(struct board_t*); 
+};
+Przygotuj funkcje do obsługi powyższej struktury:
+
+int create_board(struct board_t **board, int width,int height);
+void display_board(const struct board_t *board);
+void free_board(struct board_t *board);
+int set_player(struct board_t *board, int x, int y);
+
+struct board_t* move_player_up(struct board_t*);
+struct board_t* move_player_down(struct board_t*);
+struct board_t* move_player_left(struct board_t*);
+struct board_t* move_player_right(struct board_t*);
+int create_board(struct board_t **board, int width, int height);
+Funkcja przydziela pamięć na strukturę oraz planszę do gry o wymiarach width i height, ustawia również odpowiednie wartości wszystkich pól struktury.
+
+Uwagi do funkcji:
+
+Ponadto zawartość planszy należy wypełnić kropkami (.).
+Funkcja nie realizuje operacji dodawania gracza do planszy.
+Wiersze w tablicy board należy traktować jako teksty o długości width znaków. Oznacza to konieczność alokowania width + 1 bajtów.
+Wartość zwracana:
+
+0 - w przypadku sukcesu,
+1 - w przypadku przekazania błędnych danych,
+2 - w przypadku niepowodzenia alokacji pamięci.
+void display_board(const struct board_t *board);
+Funkcja wyświetla na konsoli aktualny stan planszy do gry. W przypadku przekazania błędnych danych, funkcja nic nie robi.
+
+Przykład planszy 10 x 7 z graczem:
+
+..........⏎
+..........⏎
+..........⏎
+..........⏎
+.@........⏎
+..........⏎
+..........⏎
+void free_board(struct board_t *board);
+Funkcja zwalnia całą pamięć przydzieloną na strukturę. W przypadku przekazania błędnych danych, funkcja nic nie robi.
+
+int set_player(struct board_t *board, int x, int y)
+Funkcja ustawia gracza w komórce o współrzędnych (x, y). Gracz ma być reprezentowany znakiem @. Ponadto gracz może zostać wstaiony na planszę tylko raz.
+
+Wartość zwracana:
+
+0 w przypadku sukcesu,
+1 w przypadku przekazania błędnych danych (np. położenie gracza jest po za planszą)
+struct board_t* move_player_up(struct board_t*);
+struct board_t* move_player_down(struct board_t*);
+struct board_t* move_player_left(struct board_t*);
+struct board_t* move_player_right(struct board_t*);
+Funkcje mają za zadanie zmieniać pozycję gracza na planszy board. Pozycja gracza powinna zostać przesunięta o jedną komórkę w odpowiednią stronę. W przypadku dojścia gracza do krawędzi, ten powinien pojawić się on po przeciwnej stronie planszy.
+
+Informację o pozycji gracza należy przechowywać (i aktualizować) w dwóch miejscach:
+
+w polu player typu point_t
+oraz w postaci znaku @ w tablicy board.
+Wartość zwracana:
+
+wskaźnik na strukturę board_t w przypadku sukcesu,
+NULL w przypadku przekazania błędnych danych.
+Deklaracje wszystkich funkcji oraz struktur (board_t oraz point_t) umieść w pliku nagłówkowym w pliku board.h, a definicja funkcji w pliku board.c.
+
+Napisz program, który umożliwi użytkownikowi przesuwanie gracza po planszy.
+
+W pierwszej kolejności program powinien pobrać od użytkownika wymiary planszy, najpierw szerokość potem wysokość.
+
+W przypadku niemożliwości zaalokowania niezbędnej ilości pamięci przerwij niezwłocznie program z komunikatem Failed to allocate memory i kodem błędu 8.
+Jeśli użytkownik podał nieprawidłowy rozmiar tablicy, przerwij program z komunikatem Incorrect input data i kodem błędu 2.
+W przypadku wprowadzenia przez użytkownika nieprawidłowych znaków program powinien zostać przerwany z kodem błędu 1 i komunikatem Incorrect input.
+Następnie program powinien pobrać od użytkownika współrzędne komórki, w której ma zostać umieszczony gracz jako dwie liczby całkowite (x, y). Jeżeli użytkownik poda dane niepoprawne (nie liczby, bądź liczby spoza zakresu) to program powinien zareagować odpowiednim komunikatem i przerwać pracę (jak wyżej).
+
+W przypadku sukcesu program powinien wyświetlić planszę do gry i zapytać się użytkownika o kierunek ruchu:
+
+w - ruch w górę,
+s - ruch w dół,
+a - ruch w lewo,
+d - ruch w prawo,
+q - koniec programu.
+W przypadku wyboru nieprawidłowej opcji program powinien wyświetlić komunikat Incorrect choice i kontynuować działanie.
+
+Do wykonania akcji wolno stosować wyłącznie wskaźniki na funkcje, zawarte w strukturze board_t a po wykonaniu danej akcji należy wyświetlić zawartość planszy (ponieważ pozycja gracza mogła się zmienić) i ponownie poprosić użytkownika o akcję.
+
+Przykładowa interakcja z programem -- sukces:
+
+Enter width and height of the board: 5 5⏎
+Enter player's initial coordinates (x, y): 2 3⏎
+.....⏎
+.....⏎
+.....⏎
+..@..⏎
+.....⏎
+Choose your action: w⏎
+.....⏎
+.....⏎
+..@..⏎
+.....⏎
+.....⏎
+Choose your action: a⏎
+.....⏎
+.....⏎
+.@...⏎
+.....⏎
+.....⏎
+Choose your action: w⏎
+.....⏎
+.@...⏎
+.....⏎
+.....⏎
+.....⏎
+Choose your action: d⏎
+.....⏎
+..@..⏎
+.....⏎
+.....⏎
+.....⏎
+Choose your action: w⏎
+..@..⏎
+.....⏎
+.....⏎
+.....⏎
+.....⏎
+Choose your action: d⏎
+...@.⏎
+.....⏎
+.....⏎
+.....⏎
+.....⏎
+Choose your action: d⏎
+....@⏎
+.....⏎
+.....⏎
+.....⏎
+.....⏎
+Choose your action: d⏎
+@....⏎
+.....⏎
+.....⏎
+.....⏎
+.....⏎
+Choose your action: s⏎
+.....⏎
+@....⏎
+.....⏎
+.....⏎
+.....⏎
+Choose your action: a⏎
+.....⏎
+....@⏎
+.....⏎
+.....⏎
+.....⏎
+Choose your action: T⏎
+Incorrect choice⏎
+Choose your action: s⏎
+.....⏎
+.....⏎
+....@⏎
+.....⏎
+.....⏎
+Choose your action: X⏎
+Incorrect choice⏎
+Choose your action: w⏎
+.....⏎
+....@⏎
+.....⏎
+.....⏎
+.....⏎
+Choose your action: D⏎
+Incorrect choice⏎
+Choose your action: q⏎
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit sterty: 246 bajtów
+
+Enter width and height of the board: 6 18⏎
+Failed to allocate memory⏎
+Przykładowa interakcja z programem -- błąd danych:
+
+Enter width and height of the board: 6 8⏎
+Enter player's initial coordinates (x, y): 6 0⏎
+Incorrect input data
+Enter width and height of the board: 0 9⏎
+Incorrect input data
+Enter width and height of the board: egUygyHjc⏎
+Incorrect input
+Enter width and height of the board: 10 6⏎
+Enter player's initial coordinates (x, y): lVZkSior⏎
+Incorrect input
+Uwagi
+W programie nie wolno korzystać z operatora [].

@@ -1,0 +1,16 @@
+Napisz program, który pobierze od użytkownika tekst dowolnej długości i wyświetli go na ekranie.
+
+W programie nie wolno korzystać z funkcji malloc oraz calloc, a na funkcję realloc został ustawiony limit pojedynczego wywołania na 50 bajtów. Oznacza to, że każdorazowo już wcsześniej przydzieloną pamięć można zwiększyć najwyżej o 50 bajtów.
+
+W przypadku, kiedy nie uda się przydzielić za pierwszym razem pamięci program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8, jeżeli nie uda się powiększyć przydzielonego obszaru pamięci, program powinien wyświetlić dotychczasowo pobrany tekst.
+
+Przykładowa interakcja z programem -- sukces:
+
+Podaj tekst: Dolor amet dolorem velit velit ut.⏎
+Dolor amet dolorem velit velit ut.⏎
+Przykładowa interakcja z programem -- brak pamięci:
+
+Podaj tekst: Ten tekst jest zbyt dlugi i nie miesci sie w pamieci⏎
+Failed to allocate memory⏎
+Uwagi
+W programie nie wolno korzystać z operatora [].
