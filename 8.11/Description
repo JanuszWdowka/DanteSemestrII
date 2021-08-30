@@ -1,0 +1,20 @@
+Napisz program, który pobiera od użytkownika dwie liczby 64-bitowe bez znaku a następnie wyznacza i wyświetla ich sumę w nowej linii.
+
+W przypadku wprowadzenia przez użytkownika nieprawidłowych znaków program powinien zostać przerwany z kodem błędu 1 i komunikatem Incorrect input.
+Na potrzeby programu przygotuj i wykorzystaj funkcję o następującym prototypie:
+
+unsigned long long add(unsigned long long a, unsigned long long b);
+Funkcja przyjmuje liczbę a i b i zwraca ich sumę.
+
+Przykładowa interakcja z programem -- sukces:
+
+Enter numbers: 5 7⏎
+12
+Enter numbers: 1752950519 0⏎
+1752950519
+Przykładowa interakcja z programem -- błąd danych:
+
+Enter numbers:MVtrMuW⏎
+Incorrect input⏎
+Uwagi
+W programie nie można wykorzystywać unii bitowych oraz operatorów matematycznych (+-*/).

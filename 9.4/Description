@@ -1,0 +1,114 @@
+Napisz program który odwraca kolejność zdań w plikach w oparciu o przygotowaną strukturę stosu:
+
+struct stack_t
+{
+    char *sentence;
+    struct stack_t *prev;
+};
+gdzie:
+
+sentence - wskaźnik na tekst (zdanie).
+prev - wskaźnik na kolejny (niższy) element stosu. Jeżeli stack_t jest najniższym elementem stosu (pierwszy położony) to prev==NULL.
+Zdanie jest to ciąg dowolnych znaków zakończony kropką.
+
+W tym zadaniu nie istnieje struktura opisująca stos. Dlatego wszystkie funkcje posługują się wierzchołkiem stosu. Wierzchołek stosu posiada informacje o wartości elementu na nim (sentence) oraz o elemencie pod nim. Wierzchołek stosu jest ostatnim elementem położonym na stos (push) oraz będzie pierwszym zdjętym (pop).
+
+Przygotuj następujące funkcje, umożliwiające obsługę stosu:
+
+int stack_push(struct stack_t **stack, char *value);
+char *stack_pop(struct stack_t **stack, int *err_code);
+void stack_destroy(struct stack_t **stack);
+int stack_load(struct stack_t **stack, const char *filename);
+int stack_save(const struct stack_t *stack, const char *filename);
+Deklaracje wszystkich funkcji oraz struktur umieść w pliku nagłówkowym stack.h, a definicje w pliku stack.c.
+
+int stack_push(struct stack_t **stack, char *value);
+Funkcja kładzie element o wartości value na stosu stack. Po położeniu elementu na stos funkcja modyfikuje wskaźnik *stack tak, aby wskazywał na nowy wierzchołek.
+
+Funkcja nie wykonuje kopii tekstu value (po prostu przypisuje value do sentence).
+
+Funkcja zwraca:
+
+0 w przypadku sukcesu,
+1 w przypadku błędnych danych wejściowych lub
+2 jeżeli nie uda się przydzielić pamięci.
+char *stack_pop(struct stack_t **stack, int *err_code);
+Funkcja zdejmuje ze stosu stack ostatni dodany element i zwraca jego wartość. Po zdjęciu elementu ze stosu funkcja modyfikuje wskaźnik *stack tak, aby wskazywał na nowy wierzchołek (lub NULL) jeśli stos jest pusty.
+
+Do zmiennej err_code, o ile to możliwe, zapisany powinien zostać kod błędu:
+
+0 w przypadku sukcesu,
+1 w przypadku błędnych danych wejściowych lub pustego stosu.
+void stack_destroy(struct stack_t** stack);
+Funkcja usuwa wszystkie elementy ze stosu stack oraz zwalnia pamięć przydzieloną na teksty przechowywane na stosie. Ponadto przypisuje wartość NULL pod adres dany wskaźnikiem stack.
+
+int stack_save(const struct stack_t *stack, const char *filename);
+Funkcja zapisuje zdania ze stosu do pliku filename.
+
+Funkcja zwraca:
+
+1 w przypadku przekazania błędnych danych,
+2 jeżeli nie uda się otworzyć pliku,
+0 w przypadku sukcesu.
+Ponieważ dane na stosie (teksty) przechowywane są jako zdania (ciągi znaków zakończone kropką), to funkcja stack_save może zapisywać je do pliku bez żadnych dodatkowych separatorów, np. jako ala.ma.kota.
+
+Oczywiście funkcja stack_load musi uwzględniać ten fakt i rozdzielać zdania kropkami w chwili wczytywania.
+
+int stack_load(struct stack_t **stack, const char *filename);
+Funkcja odczytuje zdania z pliku filename i dodaje je do pustego stosu stack. Zdanie kładzione na stos musi kończyć się kropką.
+
+Funkcja zwraca:
+
+1 w przypadku przekazania błędnych danych,
+2 jeżeli nie uda się otworzyć pliku,
+3 w przypadku niepowodzenia alokacji pamięci,
+0 w przypadku sukcesu.
+Funkcja może przydzielić tylko tyle pamięci, ile będzie potrzebne na przechowania danych odczytanych z pliku.
+
+Przykładowe zawartości plików:
+
+Ala.ma.kota. - 3 zadania: "Ala.", "ma.", oraz "kota."
+Ala. ma. kota. - 3 zdania: "Ala.", " ma." oraz " kota."
+Ala.ma. kota - 2 zdania: "Ala." oraz "ma."
+Napisz program, który odwraca kolejność zdań w plikach w oparciu o przygotowaną strukturę stosu. Program powinien przyjąć w parametrach nazwy plików, dla których ma zostać dokonana operacja odwracania kolejności zdań.
+
+Po modyfikacji teksty mają zostać zapisane do tych samych plików.
+
+Program powinien zwrócić następujące kody błędów:
+
+0 i wyświetlić komunikat:
+File NAZWA-PLIKU saved w przypadku udanego zapisu pliku NAZWA-PLIKU na dysk,
+Couldn't open file NAZWA-PLIKU w przypadku kiedy plik NAZWA-PLIKU nie istnieje,
+5 i wyświetlić komunikat Couldn't create file w przypadku kiedy niemożliwe będzie utworzenie pliku,
+8 i wyświetlić komunikat Failed to allocate memory w przypadku wywołania niepowodzenia alokacji pamięci.
+9 i wyświetlić komunikat Not enough arguments w przypadku wywołania programu ze zbyt małą liczbą argumentów.
+Przykładowa interakcja z programem -- sukces:
+
+Wejście: shape.txt, team.txt, boat.txt, open.txt. Wyjście: shape.txt, team.txt, boat.txt, open.txt.
+
+$>  ./main shape team boat open
+File shape saved⏎
+File team saved⏎
+File boat saved⏎
+File open saved⏎
+Brak plików: dream, speed, difficult, alt, multiply.
+
+Couldn't open file dream⏎
+File post saved⏎
+Couldn't open file speed⏎
+Couldn't open file difficult⏎
+Couldn't open file all⏎
+File what saved⏎
+Couldn't open file multiply⏎
+Przykładowa interakcja z programem -- brak argumentów:
+
+$> ./main
+Not enough arguments⏎
+Przykładowa interakcja z programem -- brak możliwości utworzenia pliku:
+
+File face saved⏎
+File less saved⏎
+Couldn't create file⏎
+Uwagi
+W programie nie wolno deklarować zmiennej typu struct stack_t, zamiast tego zadeklaruj wskaźnik na strukturę.
+W programie nie wolno używać operatora []!

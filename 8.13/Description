@@ -1,0 +1,56 @@
+Przygotuj makra do:
+
+Obliczania liczby ustawionych i wyzerowanych bitów w liczbie przekazanej do makra. Makro powinno przyjąć liczbę całkowitą, dla której ma zostać wyznaczona statystyka i dwa wskaźniki na liczby całkowite, do której ma zostać zapisany wynik.
+Przykład wywołania:
+COUNT_BITS(value, pointer_to_bits_set_counter, pointer_to_bits_cleared_counter);
+Wyświetlania reprezentacji binarnej liczby przekazanej do makra. Przykład wywołania:
+DISPLAY_BITS(value);
+Odwracania kolejności bitów w liczbie. Przykład wywołania:
+REVERSE_BITS(pointer_to_variable);
+Definicje makr umieść w pliku functions.h.
+
+Napisz program, który dla liczby całkowitej (unsigned int, unsigned short lub unsigned long) obliczy i wyświetli w oddzielnych liniach:
+
+liczbę bitów ustawionych,
+liczbę bitów wyzerowanych,
+binarną reprezentację podanej liczby
+binarną reprezentację podanej liczby, ale po odwróceniu bitów.
+Na początku program powinien pobrać od użytkownika typ wprowadzanych danych:
+
+0 - oznacza liczbę całkowitą czterobajtową,
+
+1 - oznacza liczbę całkowitą dwubajtową,
+
+2 - liczbę całkowitą ośmiobajtową.
+
+W przypadku wprowadzenia błędnych znaków program powinien wyświetlić komunikat Incorrect input i zakończyć działanie z kodem błędu 1.
+
+W przypadku wprowadzenia błędnych danych program powinien wyświetlić komunikat Incorrect input data i zakończyć działanie z kodem błędu 2.
+
+Przykładowa interakcja z programem -- sukces:
+
+Enter data type: 1⏎
+Enter an integer number: 4108⏎
+3⏎
+13⏎
+0001000000001100⏎
+0011000000001000
+Enter data type: 0⏎
+Enter an integer number: 1236459360⏎
+16⏎
+16⏎
+01001001101100101101111101100000⏎
+00000110111110110100110110010010
+Enter data type: 2⏎
+Enter an integer number: 18040967360836102561⏎
+32⏎
+32⏎
+1111101001011110011001000011101011000011000011010110100110100001⏎
+1000010110010110101100001100001101011100001001100111101001011111
+Przykładowa interakcja z programem -- błąd danych:
+
+Enter data type: 2⏎
+Enter an integer number: MHGH⏎
+Incorrect input
+Enter data type: 7⏎
+Incorrect input data

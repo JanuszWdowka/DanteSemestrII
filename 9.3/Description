@@ -1,0 +1,111 @@
+Napisz program który policzy wartość wyrażenia numerycznego, danego ciągiem liczb i operatorów. W tym celu zaimplementuj stos w oparciu o następujące struktury oraz funkcje:
+
+struct stack_t
+{
+    struct node_t *head;
+};
+
+struct node_t
+{
+    double data;
+    struct node_t* next;
+};
+gdzie:
+
+head - Wskaźnik na pierwszy element stosu. Pierwszy element na stosie to inaczej ostatni dodany element. Jeżeli stos jest pusty powinien być ustawiony na NULL.
+next - wskaźnik na następny element stosu (lub NULL jeśli następnego nie ma)
+Przygotuj następujące funkcje, umożliwiające obsługę stosu:
+
+int stack_init(struct stack_t **stack);
+int stack_push(struct stack_t *stack, double value);
+void stack_display(const struct stack_t* stack);
+double stack_pop(struct stack_t* stack, int *err_code);
+void stack_destroy(struct stack_t** stack);
+int stack_size(const struct stack_t* stack);
+int stack_empty(const struct stack_t* stack);
+Deklaracje wszystkich funkcji oraz struktur umieść w pliku nagłówkowym stack.h, a definicje w pliku stack.c.
+
+int stack_init(struct stack_t **stack);
+Funkcja przydziela pamięć na strukturę stack_t i inicjuje jej pola odpowiednimi wartościami. Funkcja zwraca wartość:
+
+1 w przypadku przekazania błędnych danych,
+2 w przypadku niepowodzenia alokacji pamięci lub
+0 w przypadku sukcesu.
+int stack_push(struct stack_t *stack, double value);
+Funkcja dodaje element o wartości value do stosu stack. Funkcja zwraca:
+
+0 w przypadku sukcesu,
+1 w przypadku błędnych danych wejściowych lub
+2 jeżeli nie uda się przydzielić pamięci.
+double stack_pop(struct stack_t* stack, int *err_code);
+Funkcja usuwa ostatnio dodany element ze stosu stack zwracając jego wartość. Do zmiennej err_code, o ile to możliwe, zapisany powinien zostać kod błędu:
+
+0 w przypadku sukcesu,
+1 w przypadku błędnych danych wejściowych lub pustego stosu.
+int stack_empty(const struct stack_t* stack);
+Funkcja sprawdza czy stos stack jest pusty, zwraca
+
+1 jeżeli stos jest pusty,
+0 jeżeli na stosie znajdują się jakieś elementy lub
+2 w przypadku błędnych danych wejściowych.
+void stack_destroy(struct stack_t** stack);
+Funkcja usuwa wszystkie elementy z listy stack oraz zwalnia pamięć całego stosu. Ostatecznie funkcja zapisuje NULL pod przekazany adres.
+
+W przypadku błędnych danych funkcja nie podejmuje żadnej akcji.
+
+int stack_size(const struct stack_t* stack);
+Funkcja zwraca:
+
+liczbę elementów znajdujących się na stosie stack,
+a w przypadku przekazania błędnych danych funkcja zwraca -1.
+Napisz program który policzy wartość wyrażenia numerycznego, danego ciągiem liczb i operatorów.
+
+Wyrażenie będzie dane w taki sposób, że operator binarny, posiadający argumenty po lewej oraz prawej stronie (arg1 op arg2), zostanie przesunięty za swój prawostronny argument: arg1 arg2 op
+
+Przykład wyrażeń:
+
+2 + 3 zostanie podane jako 2 3 +
+-100 - (-17 + 4) zostanie podane jako -100 -17 4 + -
+30 * 2 + 9 zostanie podane jako 30 2 * 9 +
+30 + 2 * 9 zostanie podane jako 30 2 9 * +
+Przykład postępowania:
+
+Aby obliczyć wartość wyrażenia 30 2 9 * + należy wykonać następujące operacje:
+
+jeżeli na wejściu jest liczba, należy ją położyć na stosu.
+jeżeli na wejściu jest operator, należy:
+zdjąć ze stosu dwie ostatnie wartości (arg2 i arg1),
+wykonać działanie arg1 op arg2,
+wynik wyrażenia należy dodać do stosu.
+Program powinien wyświetlić na ekranie wartość obliczonego wyrażenia w przypadku sukcesu.
+
+Jeżeli wprowadzone wyrażenie nie będzie poprawne, program powinien wyświetlić komunikat Incorrect expression i zakończyć działanie z kodem błędu 2.
+W przypadku wprowadzenia przez użytkownika błędnych znaków program powinien bezzwłocznie zakończyć działanie z kodem błędu 1 i komunikatem Incorrect input.
+Jeżeli nie uda się zaalokować żądanego obszaru pamięci program powinien wyświetlić komunikat Failed to allocate memory i zwrócić kod błędu 8.
+W programie można przydzielić tylko tyle pamięci ile będzie potrzebne na przechowanie liczb na stosie.
+
+Przykładowa interakcja z programem -- sukces:
+
+Enter expression: -60 -19 +⏎
+-79.000000
+Enter expression: 19 29 - 28 31 / -48 83 - + / -24 51 / - -4 - 36 +⏎
+40.547454
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit sterty: 32 bajty:
+
+Enter expression: 1 -56 + 75 / 85 -⏎
+Failed to allocate memory⏎
+Limit sterty: 40 bajtów
+
+Enter expression: 1 -56 + 75 / 85 -⏎
+-85.733333⏎
+Przykładowa interakcja z programem -- błąd danych:
+
+Enter expression: -8 32 72 - + 28 - 0 71 + -25 -20 - - + -45 7 54 -50 -72 + - + + * -38⏎
+Incorrect expression
+Enter expression: 84 32 3 -35 / - * -44 -33 -39 + - -100 29 72 39 * + 29 * + [ +⏎
+Incorrect input
+Uwagi
+W programie nie wolno deklarować zmiennej typu struct stack_t, zamiast tego zadeklaruj wskaźnik na strukturę.
+W programie nie wolno używać operatora []!

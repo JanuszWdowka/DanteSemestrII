@@ -1,0 +1,21 @@
+Napisz program, który pobiera od użytkownika 32-bitową liczbę całkowitą bez znaku a następnie wyznacza i wyświetla długość najdłuższego nieprzerwanego ciągu ustawionych bitów w tej liczbie.
+
+W przypadku wprowadzenia przez użytkownika nieprawidłowych znaków program powinien zostać przerwany z kodem błędu 1 i komunikatem Incorrect input.
+Na potrzeby programu przygotuj i wykorzystaj funkcję o następującym prototypie:
+
+int longest_series(unsigned int x);
+Funkcja przyjmuje liczbę x i zwraca długość najdłuższej serii ustawionych bitów.
+
+Przykład:
+
+longest_series(0)   // 0
+longest_series(0x7) // 3
+longest_series(255) // 8
+longest_series(259) // 2 
+Przykładowa interakcja z programem -- sukces:
+
+Podaj liczbę: 3⏎
+Wynik: 2⏎
+Przykładowa interakcja z programem -- błąd danych:
+
+Podaj liczbę: g$

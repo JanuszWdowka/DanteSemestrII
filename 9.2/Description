@@ -1,0 +1,140 @@
+Napisz program, który pozwoli użytkownikowi na wykonywanie podstawowych operacji na stosie. W tym celu zaimplementuj stos w oparciu o następujące struktury oraz funkcje:
+
+struct stack_t
+{
+    struct node_t *head;
+};
+
+struct node_t
+{
+    int data;
+    struct node_t* next;
+};
+gdzie:
+
+head - Wskaźnik na pierwszy element stosu. Pierwszy element na stosie to inaczej ostatni dodany element. Jeżeli stos jest pusty powinien być ustawiony na NULL.
+next - wskaźnik na następny element stosu (lub NULL jeśli następnego nie ma)
+Przygotuj następujące funkcje, umożliwiające obsługę stosu:
+
+int stack_init(struct stack_t **stack);
+int stack_push(struct stack_t *stack, int value);
+void stack_display(const struct stack_t* stack);
+int stack_pop(struct stack_t* stack, int *err_code);
+void stack_destroy(struct stack_t** stack);
+int stack_empty(const struct stack_t* stack);
+Deklaracje wszystkich funkcji oraz struktur umieść w pliku nagłówkowym stack.h, a definicje w pliku stack.c.
+
+int stack_init(struct stack_t **stack);
+Funkcja przydziela pamięć na strukturę stack_t i inicjuje jej pola odpowiednimi wartościami.
+
+Funkcja zwraca wartość:
+
+1 w przypadku przekazania błędnych danych,
+2 w przypadku niepowodzenia alokacji pamięci lub
+0 w przypadku sukcesu.
+int stack_push(struct stack_t *stack, int value);
+Funkcja dodaje element o wartości value do stosu stack.
+
+Zwraca:
+
+0 w przypadku sukcesu,
+1 w przypadku błędnych danych wejściowych lub
+2 jeżeli nie uda się przydzielić pamięci.
+int stack_pop(struct stack_t* stack, int *err_code);
+Funkcja zdejmuje ostatnio dodany element ze stosu stack zwracając jego wartość. W przypadku błędu zwracana wartość jest nieistotna.
+
+Do zmiennej err_code, o ile to możliwe, zapisany powinien zostać kod błędu:
+
+0 w przypadku sukcesu,
+1 w przypadku błędnych danych wejściowych lub pustego stosu.
+int stack_empty(const struct stack_t* stack);
+Funkcja sprawdza czy stos stack jest pusty, zwraca:
+
+1, jeżeli stos jest pusty,
+0 jeżeli na stosie znajdują się jakieś elementy lub
+2 w przypadku błędnych danych wejściowych.
+void stack_destroy(struct stack_t** stack);
+Funkcja usuwa wszystkie elementy z listy stack oraz zwalnia pamięć całego stosu. Ostatecznie funkcja zapisuje NULL pod przekazany adres.
+
+W przypadku błędnych danych funkcja nie podejmuje żadnej akcji.
+
+void stack_display(const struct stack_t* stack);
+Funkcja wyświetla wszystkie elementy ze stosu stack, w jednym wierszu, oddzielone spacjami. Pierwszym wyświetlonym elementem ma być ostatni dodany na stos.
+
+W przypadku błędnych danych funkcja nie podejmuje żadnej akcji.
+
+Napisz program, który pozwoli użytkownikowi na wykonywanie podstawowych operacji na stosie. Na początek program powinien zaalokować pamięć na stos.
+
+Jeżeli nie uda się zaalokować żądanego obszaru pamięci program powinien wyświetlić komunikat Failed to allocate memory i zwrócić kod błędu 8.
+W przypadku wprowadzenia przez użytkownika błędnych znaków program powinien bezzwłocznie zakończyć działanie z kodem błędu 1 i komunikatem Incorrect input.
+Jeżeli udało się utworzyć stos to program powinien zapytać użytkownika o wybór operacji:
+
+0 - Zakończenie działania programu.
+1 - Dodanie elementu do stosu. Program pobiera od użytkownika wartość, która ma zostać położona na stos.
+2 - Zdjęcie ostatnio położonego elementu ze stosu. Program powinien wyświetlić wartość zdjętego elementu.
+Jeżeli stos jest pusty to program powinien wyświetlić komunikat Stack is empty i kontynuować.
+3 - Sprawdzanie czy stos jest pusty. Program powinien wypisać:
+1 jeżeli stos jest pusty lub
+0 w przeciwnym przypadku.
+4 - Wyświetlenie wartości wszystkich elementów znajdujących się na stosie.
+Jeżeli stos jest pusty program powinien wyświetlić komunikat Stack is empty.
+W przypadku podania innej wartości program powinien wyświetlić komunikat Incorrect input data i kontynuować działanie.
+Przykładowa interakcja z programem -- sukces:
+
+Co chcesz zrobic? 1⏎
+Podaj liczbe -4⏎
+Co chcesz zrobic? 1⏎
+Podaj liczbe -10⏎
+Co chcesz zrobic? 1⏎
+Podaj liczbe 10⏎
+Co chcesz zrobic? 7⏎
+Incorrect input data⏎
+Co chcesz zrobic? 4⏎
+10 -10 -4 ⏎
+Co chcesz zrobic? 4⏎
+10 -10 -4 ⏎
+Co chcesz zrobic? 3⏎
+0⏎
+Co chcesz zrobic? 4⏎
+10 -10 -4 ⏎
+Co chcesz zrobic? 1⏎
+Podaj liczbe -6⏎
+Co chcesz zrobic? 3⏎
+0⏎
+Co chcesz zrobic? 4⏎
+-6 10 -10 -4 ⏎
+Co chcesz zrobic? 2⏎
+-6⏎
+Co chcesz zrobic? 3⏎
+0⏎
+Co chcesz zrobic? 1⏎
+Podaj liczbe -3⏎
+Co chcesz zrobic? 0⏎
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit sterty: 56 bajtów
+
+Co chcesz zrobic? 1⏎
+Podaj liczbe 6⏎
+Co chcesz zrobic? 1⏎
+Podaj liczbe 0⏎
+Co chcesz zrobic? 1⏎
+Podaj liczbe 10⏎
+Co chcesz zrobic? 1⏎
+Podaj liczbe 7⏎
+Failed to allocate memory⏎
+Przykładowa interakcja z programem -- błąd danych:
+
+Podaj liczbe -10⏎
+Co chcesz zrobic? 1⏎
+Podaj liczbe VxPBgOUr⏎
+Incorrect input
+Co chcesz zrobic? 1⏎
+Podaj liczbe 10⏎
+Co chcesz zrobic? 7⏎
+Incorrect input data⏎
+Co chcesz zrobic? 1⏎
+Podaj liczbe 14⏎
+Uwagi
+W programie nie wolno deklarować zmiennej typu struct stack_t, zamiast tego zadeklaruj wskaźnik na strukturę.
+W programie nie wolno używać operatora []!

@@ -1,0 +1,41 @@
+Przygotuj makra do obliczania:
+
+kwadratu liczby (SQR),
+minimum z dwóch liczb (MIN) oraz
+maksimum z dwóch liczb (MAX).
+Definicje tych makr umieść w pliku functions.h.
+
+Napisz program, który dla dwóch liczb zmiennoprzecinkowych lub całkowitych obliczy i wyświetli w kolejnych liniach:
+
+kwadraty podanych liczb
+większą oraz
+mniejszą wartość.
+Na początku program powinien pobrać od użytkownika typ wprowadzanych danych:
+
+0 - oznacza liczby całkowite,
+1 - liczby zmiennoprzecinkowe pojedynczej precyzji
+a następne dwie wartości liczbowe.
+
+W przypadku wprowadzenia błędnych znaków program powinien wyświetlić komunikat Incorrect input i zakończyć działanie z kodem błędu 1.
+W przypadku wprowadzenia błędnych danych program powinien wyświetlić komunikat Incorrect input data i zakończyć działanie z kodem błędu 2.
+Przykładowa interakcja z programem -- sukces:
+
+Enter data type: 0⏎
+Enter numbers: -13 20704⏎
+169⏎
+428655616⏎
+20704⏎
+-13
+Enter data type: 1⏎
+Enter numbers: 22871.357422 -66.300041⏎
+523098976.000000⏎
+4395.695312⏎
+22871.357422⏎
+-66.300041
+Przykładowa interakcja z programem -- błąd danych:
+
+Enter data type: 0⏎
+Enter numbers: TpvLXQK⏎
+Incorrect input
+Enter data type: 2⏎
+Incorrect input data
