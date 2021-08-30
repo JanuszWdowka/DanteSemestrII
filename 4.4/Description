@@ -1,0 +1,86 @@
+Przygotuj program do alokacji, wprowadzania i wyświetlania macierzy w konsoli.
+
+W tym celu przygotuj przygotuj strukturę do przechowywania macierzy 2D o następującej postaci:
+
+struct matrix_t{
+  int **ptr;
+  int width;
+  int height;
+};
+gdzie:
+
+width - szerokośc macierzy (liczba kolumn)
+height - wysokość macierzy (liczba wierszy)
+ptr - wskaźnik na dane skonstruowany w taki sposób, że
+na pierwszym poziomie znajdują się wskaźniki na kolejne wiersze
+na drugim poziomie znajdują się liczby całkowite
+Napisz funkcje do: alokacji pamięci na macierz, do pobierania elementów macierzy od użytkownika, do wyświetlania macierzy oraz do zwalniania pamięci przydzielonej na macierz. Funkcje powinny mieć następujące prototypy:
+
+int matrix_create(struct matrix_t *m, int width, int height);
+int matrix_read(struct matrix_t *m);
+void matrix_display(const struct matrix_t *m);
+void matrix_destroy(struct matrix_t *m);
+int matrix_create(struct matrix_t *m, int width, int height);
+Funkcja alokuje pamięć na macierz o wymiarach height x width i przypisuje ją do odpowiedniego pola w strukturze m. Należy pamiętać o poprawnej inicjalizacji pozostałych pól struktury matrix_t.
+
+Wartość zwracana:
+
+1 - w przypadku błędnych danych wejściowych,
+2 - jeżeli nie udało się zaalokować pamięci lub
+0 - w przypadku sukcesu.
+int matrix_read(struct matrix_t *m);
+Funkcja pobiera od użytkownika wartości elementów i zapisuje do m macierzy wcześniej utworzonej. Wczytywanie należy zorganizować wiersz po wierszu.
+
+Wartość zwracana:
+
+2 w przypadku podania przez użytkownika błędnych danych,
+1 w przypadku błędnych przekazanych do funkcji, a
+0 w przypadku sukcesu.
+void matrix_display(const struct matrix_t *m);
+Funkcja wyświetla dane macierzy m w czytelnej formie (wierszy i kolumn). W przypadku niewłaściwych/uszkodzonych danych wejściowych funkcja nie podejmuje żadnych akcji.
+
+void matrix_destroy(struct matrix_t *m);
+Funkcja zwalnia pamięć przydzieloną na macierz m. W przypadku niewłaściwych/uszkodzonych danych wejściowych funkcja nie podejmuje żadnych akcji.
+
+Napisz program, który pobierze od użytkownika żądany rozmiar tablicy (szerokość i wysokość), a następnie wykorzystując przygotowaną funkcję zarezerwuje pamięć na tablicę.
+
+W przypadku wprowadzenia przez użytkownika błędnych znaków program powinien wyświetlić komunikat incorrect input i zakończyć działanie z kodem błędu 1.
+W przypadku podania przez użytkownika błędnych danych wejściowych program powinien wyświetlić komunikat incorrect input data i zakończyć działanie z kodem błędu 2.
+Jeżeli nie powiedzie się przydział pamięci to program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+Jeżeli udało się zarezerwować pamięć na tablicę program powinien pobrać dane od użytkownika, zapisać je do tablicy, a następnie wyświetlić.
+
+Przykładowa interakcja z programem -- sukces:
+
+Podaj szerokość i wysokość: 5 9⏎
+Podaj wartości: -2 5 -6 -4 3 ⏎
+-10 -9 -7 0 -3 ⏎
+-1 -10 -3 3 -2 ⏎
+-9 -6 2 -1 -7 ⏎
+-1 9 -4 4 -2 ⏎
+-9 4 2 0 8 ⏎
+0 4 -3 2 10 ⏎
+-9 5 9 -10 -10 ⏎
+3 4 8 9 -6 ⏎
+-2 5 -6 -4 3 ⏎
+-10 -9 -7 0 -3 ⏎
+-1 -10 -3 3 -2 ⏎
+-9 -6 2 -1 -7 ⏎
+-1 9 -4 4 -2 ⏎
+-9 4 2 0 8 ⏎
+0 4 -3 2 10 ⏎
+-9 5 9 -10 -10 ⏎
+3 4 8 9 -6 ⏎
+Przykładowa interakcja z programem -- błąd danych:
+
+Podaj szerokość i wysokość: 5 -6⏎
+Incorrect input data
+Podaj szerokość i wysokość: PaYWeY⏎
+Incorrect input
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit sterty: 352 bajty
+
+Podaj szerokość i wysokość: 4 16⏎
+Failed to allocate memory⏎
+Uwagi
+W programie nie wolno korzystać z operatora []!

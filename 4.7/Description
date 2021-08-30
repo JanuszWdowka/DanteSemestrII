@@ -1,0 +1,129 @@
+Napisz program, który wykona podstawowe operacje transformacji na obrazach bitowych (bitmapach). Formatem wejściowym będzie PNM.
+
+Format PNM (ang. Portable anymap) jest formatem zapisu grafiki rastrowej. Zapoznaj się ze specyfikacją formatu i na podstawie tego przygotuj strukturę image_t do przechowywania obrazu o następującej postaci:
+
+struct image_t {
+  char type[3];
+  int **ptr;
+  int width;
+  int height;
+};
+gdzie:
+
+type - informacje o typie pliku (np. P2 - sprawdź dokumentację formatu PNM)
+ptr - dwuwymiarowa tablica pikseli
+width, height - szerokość oraz wysokość.
+Przygotuj następujące funkcje:
+
+struct image_t* load_image_t(const char *filename, int *err_code);
+int save_image_t(const char * filename, const struct image_t *m1);
+
+void destroy_image(struct image_t **m)
+
+struct image_t* image_flip_horizontal(const struct image_t *m1);
+struct image_t* image_flip_vertical(const struct image_t *m1);
+struct image_t* image_negate(const struct image_t *m1);
+Funkcje load_image_t oraz save_image_t służą do wczytywania oraz zapisywania obrazów w odcieniach szarości w formacie PGM, w pliku tekstowym. Struktura takiego pliku wygląda następująco:
+
+Pierwsza linia zawiera typ formatu pliku, tutaj P2 (patrz dokumentacja oraz pole type struktury image_t.
+Druga linia zawiera szerokość oraz wysokość w postaci dwóch liczb całkowitych, oddzielonych spacją.
+Trzecia linia zawiera maksymalną wartość składową poziomu szarości, w postaci liczby całkowitej (np. 255).
+Czwarta linia i dalej zawierają wartości poziomu szarości poszczególnych punktów. Wartości powinny być z zakresu <0, 255>. Jeden wiersz w pliku to jeden wiersz w obrazie.
+Przykład obrazu - biały znak zapytania na czarnym tle:
+
+P2
+6 10
+255
+0   0   0   0   0   0
+0   0 255 255   0   0
+0 255   0   0 255   0
+0 255   0   0 255   0
+0   0   0   0 255   0
+0   0   0 255   0   0
+0   0 255   0   0   0
+0   0   0   0   0   0
+0   0 255   0   0   0
+0   0   0   0   0   0
+int save_image_t(const char * filename, const struct image_t *m1);
+Funkcja save_image_t powinna przyjąć nazwę pliku filename oraz wskaźnik na strukturę obrazu m1 a następnie zapisać go na dysk w formie tekstowej.
+
+Wartość zwracana:
+
+0 - w przypadku powodzenia operacji zapisu,
+1 - w przypadku błędnych danych wejściowych,
+2 - jeżeli nie udało się utworzyć pliku,
+3 - jeżeli nie udało się zapisać wszystkich danych do pliku.
+void destroy_image(struct image_t **m)
+Funkcja zwalniania pamięć przydzieloną na obraz (zarówno na strukturę jak i na dane). W przypadku podania nieprawidłowych danych wejściowych funkcja ma niepodajmować jakichkolwiek akcji.
+
+struct image_t* load_image_t(const char *filename, int *err_code);
+Funkcja load_image_t powinna przyjąć nazwę pliku filename do wczytania oraz ewentualny wskaźnik err_code na zmienną do umieszczenia kodu błędu operacji (lub NULL jeśli program wywołujący nie jest zainteresowany kodem błędu).
+
+W przypadku pomyślnego wczytania obrazu z dysku funkcja powinna zwrócić odpowiedni wskaźnik na strukturę image_t oraz ustawić kod błędu err_code na 0.
+
+W przypadku niepowodzenia należy zwrócić wskaźnik NULL oraz ustawić kod błędu err_code na:
+
+1 - w przypadku błędnych danych wejściowych funkcji,
+2 - jeżeli nie udało się otworzyć pliku,
+3 - w przypadku kiedy plik jest uszkodzony, np. format jest niezgodny z oczekiwanym (nagłówek inny niż P2),
+4 - jeżeli nie uda się przydzielić pamięci.
+Przygotuj funkcje do wykonywania prostych operacji na obrazie: odbicia lustrzanego w poziomie (lewo-prawo), w pionie (góra-dół) oraz do zmiany wartości poziomów szarości pikseli w obrazie na przeciwne (negatyw). Funkcje te powinny mieć następujące prototypy:
+
+struct image_t* image_flip_horizontal(const struct image_t *m1);
+struct image_t* image_flip_vertical(const struct image_t *m1);
+struct image_t* image_negate(const struct image_t *m1);
+Funkcje zwracają wskaźnik na nowo utworzony obraz (po wykonaniu odpowiedniej operacji) lub NULL w przypadku, kiedy operacja się nie powiodła.
+
+Napisz program, który pobierze od użytkownika nazwę pliku (tablica na nazwę pliku powinna być alokowana dynamicznie na 39 znaków), a następnie odczyta z niego obraz.
+
+W przypadku kiedy nie uda się otworzyć podanego pliku, program powinien wyświetlić komunikat Couldn't open file i zakończyć działanie z kodem błędu 4.
+Jeżeli dane zapisane w pliku są niepoprawne należy wyświetlić komunikat File corrupted i zakończyć działanie z kodem błędu 6.
+Jeżeli nie uda się przydzielić pamięci program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+W przypadku pomyślnego wczytania pliku wejciowego program generuje:
+
+będący odbiciem lustrzanym w poziomie obrazu wczytanego,
+będący odbiciem lustrzanym w pionie obrazu wejściowego,
+z odwróconymi kolorami, względem wartości 255.
+Po wygenerowaniu każdego z obrazów należy sprawdzić czy operacja generacji się powiodła. Jeżeli zabrakło pamięci i funkcja image_* zwróciła NULL to program należy niezwłocznie przerwać z kodem błędu 8 oraz komunikatem Failed to allocate memory. Generowanie i zapisywanie kolejnego obrazu można wykonywać dopiero wtedy, gdy generacja/zapis oprzedniego zakończyła się sukcesem.
+
+Wszystkie trzy obrazy należy zapisać do plików o nazwie podanej przez użytkownika, ale z przedrostkiem odpowiednio mirror_h_, mirror_v_ oraz invert_. Tablica na nazwę pliku powinna być alokowana dynamicznie, jeżeli nie uda się przydzielić na nią pamięci to program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+
+W przypadku powodzenia funkcja save_image_t należy wyświetlić komunikat File saved (dla każdego pliku w oddzielnej linii) lub Couldn't create file jeżeli zapis się nie powiedzie.
+
+Przykładowa interakcja z programem -- sukces:
+
+Enter file name: 5.bmpmustorganbutpersondeepcreasefr.txt⏎
+File saved⏎
+File saved⏎
+File saved
+Pliki: wejście, mirror_v, mirror_h, invert. Obrazy (tylko do celów podglądu): wejście, mirror_v, mirror_h, invert.
+
+Przykładowa interakcja z programem -- brak możliwości zapisu na dysk:
+
+Enter file name: smell.txt⏎
+Couldn't create file⏎
+Couldn't create file⏎
+Couldn't create file⏎
+Enter file name: smell.txt⏎
+File saved⏎
+Couldn't create file⏎
+Couldn't create file⏎
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit stery: 40 bajtów (miejsce tylko na bufor z nazwą pliku)
+
+Enter file name: smell.txt⏎
+Failed to allocate memory⏎
+Przykładowa interakcja z programem -- błąd danych:
+
+Próba wczytania pliku uszkodzonego lub niezgodnego z formatem PNM.
+
+Enter file name: de.jpg⏎
+File corrupted
+Brak pliku o podanej nazwie:
+
+Enter file name: 7.bmp⏎
+Couldn't open file
+Uwagi
+W programie nie wolno używać operatora '[]', oprócz deklaracji tablicy type w strukturze image_t.
+Deklaracje funkcji oraz definicję struktury umieść w pliku nagłówkowym image_utils.h, a definicje funkcji w pliku image_utils.c!

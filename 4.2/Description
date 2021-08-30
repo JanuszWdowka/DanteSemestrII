@@ -1,0 +1,59 @@
+Napisz program, który pobiera od użytkownika wymiary tablicy 2D a następnie tworzy ją, pobiera do niej dane i wyświetla je na ekranie.
+
+W tym celu napisz funkcję: alokującą pamięć na tablicę dwuwymiarową liczb typu int, wyświetlającą tablicę dwuwymiarową na ekranie oraz zwalniającą pamięć przydzieloną wcześniej na tablicę dwuwymiarową.
+
+Funkcje powinny mieć następujące prototypy:
+
+int **create_array_2d(int width, int height);
+void display_array_2d(int **ptr, int width, int height);
+void destroy_array_2d(int **ptr, int height);
+int **create_array_2d(int width, int height);
+Funkcja przydziela pamięć na tablicę dwuwymiarową o szerokości width i wysokości height. Tablicę należy zaalokować dwuetapowo:
+
+jako height-elementową tablicę wskaźników na typ int (czyli int*)
+do każdego z height elementów należy przypisać wskaźnik do zaalokowanej pamięci na width elementów typu int.
+Wartość zwracana:
+
+NULL - w przypadku braku pamięci, podania błędnych danych wejściowych, lub
+adres początkowy zaalokowanego obszaru pamięci
+W przypadku porażki którejkolwiek z alokacji funkcja musi po zwolnić zaalokowaną wcześniej pamięc.
+
+void display_array_2d(int **ptr, int width, int height);
+Funkcja wyświetlająca tablicę dwuwymiarową o szerokości width i wysokości height w konsoli. Jeden wiersz tablicy w jednym wierszu konsoli.
+
+void destroy_array_2d(int **ptr, int height);
+Funkcja zwalnia pamięć przydzieloną na tablicę dwuwymiarową o wysokości height.
+
+Napisz program, który pobierze od użytkownika żądany rozmiar tablicy, jako szerokość i wysokość, a następnie utworzy ją, wykorzystując przygotowaną funkcję.
+
+Jeżeli udało się zarezerwować pamięć na tablicę program powinien pobrać dane od użytkownika, zapisać je do tablicy, a następnie wyświetlić.
+
+W przypadku wprowadzenia przez użytkownika błędnych znaków program powinien wyświetlić komunikat incorrect input i zakończyć działanie z kodem błędu 1.
+
+W przypadku podania przez użytkownika błędnych danych wejściowych program powinien wyświetlić komunikat incorrect input data i zakończyć działanie z kodem błędu 2.
+
+Jeżeli nie powiedzie się przydział pamięci to program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+
+Przykładowa interakcja z programem -- brak pamięci: Limit sterty: 172 bajty
+
+Podaj szerokość i wysokość: 1 15⏎
+Failed to allocate memory⏎
+Wyjaśnienie: Wysokość 15 elementów to 15 wskaźników po 8 bajtów każdy (architektura 64 bitowa). Każdy z 15 wierszy ma szerokość 1 kolumny, zatem to 15 bloków po 4 bajty każdy. Stąd 15 x 8 + 15 * 4 = 180 bajtów sterty wymagane, aby program zadziałał poprawnie. Dostępne 172 bajty są niewystarczające.
+
+Przykładowa interakcja z programem -- sukces:
+
+Podaj szerokość i wysokość: 10 2⏎
+Podaj liczby: -4 2 -5 -4 -6 3 10 -9 1 0 ⏎
+-8 1 7 -3 -10 -7 -5 -9 -8 0 ⏎
+-4 2 -5 -4 -6 3 10 -9 1 0 ⏎
+-8 1 7 -3 -10 -7 -5 -9 -8 0 ⏎
+Przykładowa interakcja z programem -- błąd danych:
+
+Podaj szerokość i wysokość: 3 0⏎
+Incorrect input data
+Podaj szerokość i wysokość: 6 9⏎
+Podaj liczby: cVd⏎
+Incorrect input
+Uwagi
+W programie nie wolno korzystać z operatora []!
+Pamiętaj, że Dante działa na maszynie 64 bitowej. Oznacza to długość wskaźnika równą 8 bajtom.

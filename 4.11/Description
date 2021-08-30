@@ -1,0 +1,139 @@
+Dane są następujące tablice:
+
+int A[] = {10, 20, 30, 40, 50, 60, 70, -1};
+int B[] = {100, 200, 300, 400, 500, 600, 700, 800, -1};
+int C[] = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, -1};
+int* D[] = {A, B, C, NULL};
+Przyjmując, że symbol -1 oraz NULL są symbolami końca tablic liczb oraz wskaźników, napisz funkcje:
+
+wyświetlającą wszystkie liczby dostępne z poziomu tablicy D,
+zapisującą wszystkie liczby dostępne z poziomu tablicy D do pliku tekstowego oraz binarnego,
+wyznaczającą podstawowe wskaźniki statystyczne dla wszystkich liczb dostępnych z poziomu tablicy D.
+Funkcje te powinny mieć następujące prototypy:
+
+int statistics(int **ptr, struct statistic_t **stats);
+void display(int **ptr);
+int save(const char *filename, int **ptr, enum save_format_t format);
+void display(int **ptr);
+Funkcja wyświetla w konsoli zawartość poszczególnych wierszy tablicy ptr, bez znaku końcowego. Każdy element tablicy D (pierwszego poziomu) ma znajdować się w oddzielnej linii.
+
+W przypadku podanie niwłaściwych danych funkcja nie podejmuje żadnej akcji.
+
+Przykład dla D:
+
+10 20 30 40 50 60 70 ⏎
+100 200 300 400 500 600 700 800 ⏎
+1000 2000 3000 4000 5000 6000 7000 8000 9000 ⏎
+int save(const char *filename, int **ptr, enum save_format_t format);
+Funkcja zapisuje tablicę tablic ptr do pliku filename w formacie format w taki sposób, aby możliwe było późniejsze ich odczytanie.
+
+Parametr wyliczeniowy format określa format pliku. Wartość fmt_text wygeneruje plik tekstowy, podczas gdy fmt_binary wygeneruje plik binarny. Deklaracja typu enum save_format_t powinna znajdować się w osobnym pliku nagłówkowym o nazwie format_type.h.
+
+W przypadku plików tekstowych, każda z tablic ma zostać zapisana w oddzielnej linii, zakończonej liczbą -1. Liczba wierszy musi być zgodna z liczbą elementów w tablicy zewnętrznej ptr (bez uwzględniania wartości NULL).
+W pliku binarnym wszystkie liczby mają być zapisane w ciągu, jedna po drugiej, łącznie z liczbami -1. Terminator NULL nie jest zapisywany; o końcu danych świadczy koniec pliku.
+Wartości zwracane:
+
+1 - w przypadku błędnych danych wejściowych,
+2 - jeżeli nie udało się utworzyć pliku lub
+0 - w przypadku sukcesu.
+int statistics(int **ptr, struct statistic_t **stats);
+Funkcja wyznacza i zapisuje następujące statystyki dla tablicy tablic, danej wskaźnikiem ptr:
+
+wartość minimalną oraz maksymalną,
+wartość średnią
+wartość odchylenia standardowego
+wartość rozstępu
+Powyższe statystyki wyznaczane są dla zbioru wszystkich liczb dostępnych z poziomu ptr.
+
+Wyniki umieszczane są w strukturze stats, przy czym pamięć dla niej alokuje funkcja statistics.
+
+Struktura stats powinna wyglądać następująco:
+
+struct statistic_t
+{
+  int min;
+  int max;
+  float avg;
+  float standard_deviation;
+  int range;
+};
+W parametrze stats funkcji statistics należy przekazać adres zmiennej wskaźnikowej, do której funkcja ma zapisać adres zaalokowanej pamięci dla struktury statistic_t.
+
+Wartość zwracana:
+
+1 - w przypadku błędnych danych wejściowych,
+2 - jeżeli nie uda się przydzielić pamięci na strukturę stats,
+3 - jeżeli w tablicy nie ma danych dla których można by było wyznaczyć statystyki,
+0 - w przypadku powodzenia.
+Napisz program, który przetestuje przygotowane przez Ciebie funkcje na tablicy D i w pierwszej kolejności program powinien wyświetlić zawartość tablicy D.
+
+Następnie pobierz nazwę pliku od użytkownika. Bufor na nazwę zaalokuj dynamicznie na maks. 39 znaków a w przypadku niemożliwości zakończ program z komunikatem Failed to allocate memory i kodem błędu 8.
+
+Po pobraniu nazwy utwórz jej dwie wersje (alokując na nie pamięć), poprzez doklejenie na końcu rozszerzeń .txt oraz .bin. Do plików o tak przygotowanych nazwach zapisz tablicę D, w formacie tekstowym (fmt_text dla .txt) oraz binarnym (fmt_binary dla .bin).
+
+Jeśli zapis któregoś z plików się nie powiedzie, wyświetl napis Couldn't create file a w przypadku sukcesu napis File saved, dla każdego pliku w osobnej linii.
+
+Na koniec program ma wyznaczyć i wyświetlić statystyki dla liczb zapisanych w tablicy D, w osobnych liniach:
+
+wartość minimalną,
+wartość maksymalną,
+wartość rozstępu,
+wartość średnią,
+wartość odchylenia standardowego.
+Jeśli podczas wywołania funkcji statistics zabraknie pamięci, przerwij program z odpowiednim komunikatem i kodem błędu (jak wyżej).
+
+Przykładowa interakcja z programem -- sukces:
+
+10 20 30 40 50 60 70 ⏎
+100 200 300 400 500 600 700 800 ⏎
+1000 2000 3000 4000 5000 6000 7000 8000 9000 ⏎
+Podaj nazwę pliku: thin⏎
+File saved⏎
+File saved⏎
+10⏎
+9000⏎
+8990⏎
+2036.666626⏎
+2795.098145
+Pliki: thin.bin, thin.txt.
+
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit sterty: 0 bajtów
+
+10 20 30 40 50 60 70 ⏎
+100 200 300 400 500 600 700 800 ⏎
+1000 2000 3000 4000 5000 6000 7000 8000 9000 ⏎
+Failed to allocate memory⏎
+10 20 30 40 50 60 70 ⏎
+100 200 300 400 500 600 700 800 ⏎
+1000 2000 3000 4000 5000 6000 7000 8000 9000 ⏎
+Podaj nazwę pliku: condition⏎
+Failed to allocate memory⏎
+Przykładowa interakcja z programem -- błąd wejścia/wyjścia:
+
+10 20 30 40 50 60 70 ⏎
+100 200 300 400 500 600 700 800 ⏎
+1000 2000 3000 4000 5000 6000 7000 8000 9000 ⏎
+Podaj nazwę pliku: thus⏎
+Couldn't create file⏎
+Couldn't create file⏎
+10⏎
+9000⏎
+8990⏎
+2036.666626⏎
+2795.098145⏎
+10 20 30 40 50 60 70 ⏎
+100 200 300 400 500 600 700 800 ⏎
+1000 2000 3000 4000 5000 6000 7000 8000 9000 ⏎
+Podaj nazwę pliku: clothe⏎
+File saved⏎
+Couldn't create file⏎
+10⏎
+9000⏎
+8990⏎
+2036.666626⏎
+2795.098145⏎
+Uwagi
+W programie nie wolno używać operatora [], oprócz deklaracji tablic.
+Limit pamięci możliwy do przydzielenia za pomocą pojedynczego wywołania funkcji alokujących został ustawiony na 40 bajtów.

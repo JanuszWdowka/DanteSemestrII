@@ -1,0 +1,34 @@
+Zmodyfikuj funkcje array_push_back i array_remove_item z zadania 3.8 Usuwanie elementów z tablicy w taki sposób, żeby dostosowywały swoją pojemność do liczby obecnie przechowywanych elementów.
+
+Funkcja array_push_back, w momencie próby dodania nowego elementu do już zapełnionej tablicy, powinna najpierw zwiększyć dwukrotnie obszar pamięci przydzielonej na tablicę przechowywaną w strukturze array_t a następnie dodać element do tablicy.
+
+Jeżeli przydzielenie większego obszaru pamięci okaże się niemożliwe to funkcja powinna zwrócić wartość 2 oraz nie modyfikować zawartości tablicy.
+
+Funkcja array_remove_item, w momencie kiedy ilość pamięci zajmowana przez dane będzie mniejsza niż 25% pojemności, powinna zmniejszyć obszar przydzielony tablicy o połowę. W skrajnej sytuacji pozostała pojemność nie może być mniejszy niż na jeden.
+
+W przypadku kiedy operacja się nie powiedzie, funkcja nie powinna modyfikować zawartości tablicy, ani obszaru przez nią zajmowanego.
+
+Zmodyfikuj program 3.8 Usuwanie elementów z tablicy tak, aby w przypadku braku możliwości powiększenia pojemności tablicy w funkcji array_push_back informował on użytkownika komunikatem Failed to allocate memory zamiast Buffer is full.
+
+Reszta programu powinna pozostać niezmieniona.
+
+Przykładowa interakcja z programem -- sukces, brak ograniczenia sterty:
+
+Podaj liczbę elementów tablicy: 12⏎
+Co chcesz zrobic: 1⏎
+Podaj kolejne liczby, które mają zostać dodane do tablicy: -7 2 -1 -10 3 -1 -10 6 -8 4 1 1 3 -6 -9 -8 -9 4 -1 -3 1 8 5 2 7 1 -4 10 -10 7 -2 7 3 4 7 9 -3 -9 7 -4 1 -8 6 -7 -2 4 -4 -2 1 7 6 5 3 -10 -3 2 -3 -7 -10 1 10 -2 10 5 9 2 9 4 5 1 3 5 1 -5 -9 -2 10 1 1 -1 3 -9 10 6 2 -6 -1 1 6 -7 -10 4 9 3 -1 3 0⏎
+-7 2 -1 -10 3 -1 -10 6 -8 4 1 1 3 -6 -9 -8 -9 4 -1 -3 1 8 5 2 7 1 -4 10 -10 7 -2 7 3 4 7 9 -3 -9 7 -4 1 -8 6 -7 -2 4 -4 -2 1 7 6 5 3 -10 -3 2 -3 -7 -10 1 10 -2 10 5 9 2 9 4 5 1 3 5 1 -5 -9 -2 10 1 1 -1 3 -9 10 6 2 -6 -1 1 6 -7 -10 4 9 3 -1 3 ⏎
+Co chcesz zrobic: 2⏎
+Podaj kolejne liczby, które mają zostać usuniete z tablicy: 1 2 3 4 5 6 7 8 9 10 -5 -10 -9 -8 -7 -6 -2 -4 -3 -1 1 0⏎
+Buffer is empty⏎
+Co chcesz zrobic: 0⏎
+Przykładowa interakcja z programem -- sukces, ograniczona sterta:
+
+Limit sterty ustaiono na 84 bajy:
+
+Podaj liczbę elementów tablicy: 17⏎
+Co chcesz zrobic: 1⏎
+Podaj kolejne liczby, które mają zostać dodane do tablicy: 9 2 4 7 5 1 10 1 1 6 8 1 7 7 2 1 9 2⏎
+Failed to allocate memory⏎
+9 2 4 7 5 1 10 1 1 6 8 1 7 7 2 1 9 ⏎
+Co chcesz zrobic: 0⏎

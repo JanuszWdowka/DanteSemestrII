@@ -1,0 +1,139 @@
+Rozbuduj program z zadania 4.4 Macierz o możliwość zapisu macierzy do pliku dyskowego w formacie binarnym oraz tekstowym. W tym celu przygotuj następujące funkcje:
+
+struct matrix_t* matrix_create_struct(int width, int height);
+
+void matrix_destroy_struct(struct matrix_t **m);
+
+struct matrix_t* matrix_transpose(const struct matrix_t *m);
+
+int matrix_save_b(const struct matrix_t *m, const char *filename);
+int matrix_save_t(const struct matrix_t *m, const char *filename);
+struct matrix_t* matrix_create_struct(int width, int height);
+Funkcja alokuje pamięć na strukturę typu matrix_t, a następnie na macierz o wymiarach width x height oraz ustawia odpowiednie wartości w pozostałych polach struktury - inicjuje strukturę matrix_t*.
+
+Funkcja zwraca wartość NULL w przypadku kiedy nie udało się poprawnie utworzyć struktury lub wskaźnik do nowo utworzonej struktury.
+
+W przyadku porażki cała zaalokowana pamięć powinna zostać zwolniona.
+
+void matrix_destroy_struct(struct matrix_t **m);
+Funkcja zwalnia pamięć przydzieloną dla struktury m oraz macierz a na koniec przypisuje wartość NULL pod wskaźnik m. Funkcja oczekuje wskaźnika do zmiennej wskaźnikowej, opisującej macierz (otrzymanej od funkcji create_matrix). W przypadku podania błędnych danych funkcja nie podejmuje żadnej akcji.
+
+struct matrix_t* matrix_transpose(const struct matrix_t *m);
+Funkcja dokonuje transpozycji macierzy m i zwraca wskaźnik do nowo utworzonej struktury z macierzą wynikową lub NULL w przypadku niepowodzenia.
+
+Funkcji matrix_transpose nie wolno zmodyfikować zawartości macierzy m.
+
+int matrix_save_b(const struct matrix_t *m, const char *filename);
+int matrix_save_t(const struct matrix_t *m, const char *filename);
+Funkcje zapisują macierz m do pliku o nazwie filename w formie binarnej (matrix_save_b) lub tekstowej (matrix_save_t).
+
+Dwie pierwsze wartości (typu int) w pliku oznaczają wymiary macierzy (szerokość i wysokość). Następnie zapisywane są wartości elementów z kolejnych wierszy macierzy.
+
+W przypadku pliku tekstowego macierz ma być zapisana w czytelnej formie - w pierwszym wierszu szerokość oraz wysokość, w kolejnych dane z kolejnych wierszy oddzielone spacjami.
+
+W przypadku pliku binarnego układ danych jest identyczny przy czym typy danych należy zapisać w postaci ich rzeczywistej reprezentacji bajtowej.
+
+Wartości zwracane:
+
+0 - w przypadku udanego zapisu macierzy do pliku,
+1 - w przypadku błędnych danych wejściowych,
+2 - kiedy nie można utworzyć pliku wyjściowego,
+3 - jeżeli nie powiodło się zapisani wszystkich danych do pliku.
+Napisz program, który pobierze od użytkownika wymiary macierzy, a następnie utworzy macierz o żądanych wymiarach. Jeżeli się to nie uda, program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+
+Następnie program ma pobrać od użytkownika dane, które mają zostać zapisane do struktury oraz nazwę pliku, do którego ma zostać zapisana macierz transponowana macierzy podanej przez użytkownika.
+
+Na nazwę pliku przygotuj tablicę alokowaną dynamicznie na 40 znaków. W zależności od rozszerzenia pliku, podanego przez użytkownika, program powinien zapisać strukturę do pliku binarnego (rozszerzenie .bin) lub tekstowego (rozszerzenie .txt). Następnie program powinien transponować macierz i zapisać ją do pliku o wprowadzonej nazwie.
+
+Jeżeli rozszerzenie jest błędne to program powinien wyświetlić komunikat Unsupported file format i zwrócić kod błędu 7.
+W przypadku niemożliwości utworzenia pliku program powinien wyświetlić komunikat Couldn't create file i zwrócić wartość 5.
+Ostatecznie, jeżeli udało się zapisać dane do pliku, program powinien wyświetlić komunikat File saved.
+
+Przykładowa interakcja z programem -- sukces:
+
+Podaj szerokość i wysokość: 8 2⏎
+Podaj liczby: -5 1 -9 -9 6 5 9 -4 ⏎
+6 2 -2 6 -9 -2 -3 -6 ⏎
+Podaj sciezke do pliku:⏎
+answer.bin⏎
+File saved⏎
+Plik answer.bin.
+
+Podaj szerokość i wysokość: 6 1⏎
+Podaj liczby: 10 7 5 5 -7 -2 ⏎
+Podaj sciezke do pliku:⏎
+sharp.txt⏎
+File saved⏎
+Plik sharp.txt.
+
+Przykładowa interakcja z programem -- brak pamięci:
+
+Limit sterty: 384 bajty
+
+Podaj szerokość i wysokość: 4 16⏎
+Failed to allocate memory⏎
+Limit sterty: 400 bajtów
+
+Podaj szerokość i wysokość: 4 16⏎
+Podaj liczby: 2 -8 1 -4 ⏎
+0 3 -8 -2 ⏎
+10 -3 7 4 ⏎
+-5 -4 -9 -1 ⏎
+3 -10 -9 -5 ⏎
+-7 -5 -2 -1 ⏎
+4 -5 -6 -6 ⏎
+-6 0 4 -1 ⏎
+7 9 -9 7 ⏎
+4 10 0 8 ⏎
+-6 -2 -2 -6 ⏎
+0 1 10 8 ⏎
+-1 -5 -7 4 ⏎
+-2 1 -10 -4 ⏎
+-3 2 1 6 ⏎
+10 -10 -6 10 ⏎
+Failed to allocate memory⏎
+Limit sterty: 440 bajtów (wystarczy na pierwszą macierz oraz bufor nazwy pliku)
+
+odaj szerokość i wysokość: 4 16⏎
+Podaj liczby: 6 7 -5 3 ⏎
+0 -8 4 -2 ⏎
+-3 -7 4 0 ⏎
+2 7 -5 1 ⏎
+2 -9 -9 8 ⏎
+-7 6 -6 -9 ⏎
+-4 -10 6 2 ⏎
+7 7 1 1 ⏎
+9 9 8 -4 ⏎
+-9 -10 -9 -4 ⏎
+3 8 5 -6 ⏎
+2 6 7 1 ⏎
+1 -8 1 5 ⏎
+-6 -4 -8 3 ⏎
+10 3 -8 -9 ⏎
+5 2 4 2 ⏎
+Podaj sciezke do pliku: stood.bin⏎
+Failed to allocate memory⏎
+Przykładowa interakcja z programem -- błąd nazwy pliku:
+
+Podaj szerokość i wysokość: 5 6⏎
+Podaj liczby: 4 -4 1 6 7 ⏎
+-2 4 5 -1 -3 ⏎
+5 6 -5 9 4 ⏎
+-3 5 3 -5 -4 ⏎
+-1 -4 3 6 -1 ⏎
+-2 -2 4 4 0 ⏎
+Podaj sciezke do pliku:⏎
+length.binbear⏎
+Unsupported file format
+Przykładowa interakcja z programem -- Błąd danych wejściowych:
+
+Podaj szerokość i wysokość: 5 0⏎
+Incorrect input data
+Podaj szerokość i wysokość: 12 HvsxpIKYr⏎
+Incorrect input
+Podaj szerokość i wysokość: 6 5⏎
+Podaj liczby: zwY⏎
+Incorrect input
+Uwagi
+W programie nie wolno korzystać z operatora []!
+Deklaracje funkcji oraz definicję struktury umieść w pliku nagłówkowym matrix_utils.h, a definicje funkcji w pliku matrix_utils.c!

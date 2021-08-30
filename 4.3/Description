@@ -1,0 +1,85 @@
+Napisz funkcje: alokującą pamięć na tablicę dwuwymiarową liczb typu int, zwalniającą pamięć przydzieloną na tablicę dwuwymiarową, sumującą elementy w wierszu oraz w całej tablicy. Funkcje powinny mieć następujące prototypy:
+
+int create_array_2d_2(int ***ptr, int width, int height);
+void destroy_array_2d(int ***ptr, int height);
+void display_array_2d(int **ptr, int width, int height);
+int sum_array_2d(int **ptr, int width, int height);
+int sum_row(int *ptr, int width);
+int create_array_2d_2(int ***ptr, int width, int height);
+Funkcja powinna zaalokować pamięć na tablicę dwuwymiarową o szerokości width i wysokości height i przypisać adres przydzielonej pamięci do wskaźnika ptr.
+
+Wartość zwracana:
+
+0 w przypadku sukcesu,
+1 w przypadku przekaazania błędnych danych lub
+2 w przypadku, kiedy nie powiedzie się alokacja pamięci.
+void destroy_array_2d(int ***ptr, int height);
+Funkcja zwalnia pamięć przydzieloną na tablicę dwuwymiarową o wysokości height. Funkcja powinna przypisać wartość NULL pod adres przekazany wskaźnikiem ptr po zwolnieniu pamięci.
+
+void display_array_2d(int **ptr, int width, int height);
+Funkcja wyświetlająca tablicę dwuwymiarową o szerokości width i wysokości height w konsoli. Jeden wiersz tablicy w jednym wierszu konsoli.
+
+int sum_row(int *ptr, int width);
+Funkcja oblicza i zwraca sumę wszyskich elementów znajdujących się w wierszu ptr. W przypadku podana błędnych danych funkcja zwraca -1.
+
+int sum_array_2d(int **ptr, int width, int height);
+Funkcja oblicza i zwraca sumę wszyskich elementów znajdujących się w dwuwymiarowej tablicy ptr o szerokości width i wysokości height. W przypadku podana błędnych danych funkcja zwraca -1.
+
+Napisz program, który pobierze od użytkownika żądany rozmiar tablicy (szerokość i wysokość), a następnie wykorzystując przygotowaną funkcję zarezerwuje pamięć na tablicę.
+
+W przypadku wprowadzenia przez użytkownika błędnych znaków program powinien wyświetlić komunikat incorrect input i zakończyć działanie z kodem błędu 1.
+
+W przypadku podania przez użytkownika błędnych danych wejściowych program powinien wyświetlić komunikat incorrect input data i zakończyć działanie z kodem błędu 2.
+
+Jeżeli nie powiedzie się przydział pamięci to program powinien wyświetlić komunikat Failed to allocate memory i zakończyć działanie z kodem błędu 8.
+
+Jeżeli udało się zarezerwować pamięć na tablicę program powinien pobrać dane od użytkownika, zapisać je do tablicy, a następnie wyświetlić w osobnych liniach:
+
+pobraną tablicę (height wierszy),
+sumę elementów w poszczególnych wierszach tablicy (height wierszy)
+oraz sumę elementów w tablicy (1 wiersz).
+Przykładowa interakcja z programem -- sukces:
+
+Podaj szerokość i wysokość: 4 9⏎
+Podaj liczby: 1 5 0 -5 ⏎
+5 3 -5 6 ⏎
+-1 -9 8 -6 ⏎
+-6 5 8 5 ⏎
+-10 -8 8 1 ⏎
+-4 -3 0 7 ⏎
+-2 -4 -3 -5 ⏎
+-1 -7 -3 2 ⏎
+-4 -8 -4 8 ⏎
+1 5 0 -5 ⏎
+5 3 -5 6 ⏎
+-1 -9 8 -6 ⏎
+-6 5 8 5 ⏎
+-10 -8 8 1 ⏎
+-4 -3 0 7 ⏎
+-2 -4 -3 -5 ⏎
+-1 -7 -3 2 ⏎
+-4 -8 -4 8 ⏎
+1⏎
+9⏎
+-8⏎
+12⏎
+-9⏎
+0⏎
+-14⏎
+-9⏎
+-8⏎
+-26⏎
+Przykładowa interakcja z programem -- brak pamięci: Limit sterty: 208 bajtów
+
+Podaj szerokość i wysokość: 2 14⏎
+Failed to allocate memory⏎
+Wyjaśnienie: wymagana pamięc to 2 * 14 * 4 + 14 * 8 bajtów, czyli width * height * sizeof(int) + height * sizeof(int*)
+
+Przykładowa interakcja z programem -- błąd danych wejściowych:
+
+Podaj szerokość i wysokość: 7 3⏎
+Podaj liczby: 43 25 54 79 64 62 70 ⏎
+81 60 94 62 ybpu⏎
+Incorrect input
+Uwagi
+W programie nie wolno korzystać z operatora []!
